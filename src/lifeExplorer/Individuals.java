@@ -15,7 +15,7 @@ public abstract class Individuals {
 	protected double replicationPace;
 	protected EnvironmentSettings eS;
 	protected OrganismActions oa; 
-	
+	protected Point objective;
 	
 	public Individuals(int ID, int lCycles, int mCycles, Point pos, Creatures crea, double repPace, EnvironmentSettings envS, Board b){
 		systemID = ID;
@@ -84,4 +84,9 @@ public abstract class Individuals {
 	}
 	
 	public abstract OrganismActions lifeStep();
+	
+	public int randomWithRange(int min, int max){
+	   int range = (max - min) + 1;     
+	   return (int)(Math.random() * range) + min;
+	}
 }
