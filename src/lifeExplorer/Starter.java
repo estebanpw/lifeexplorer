@@ -27,7 +27,7 @@ public class Starter {
 		i.add(c);
 		f.start(b);
 		
-		Stepper stp = new Stepper(b, f, i);
+		Stepper stp = new Stepper(b, f, i, 100);
 		stp.start();
 	}
 
