@@ -26,7 +26,7 @@ public abstract class Individuals {
 		replicationPace = repPace;
 		eS = envS;
 		board = b;
-		oa = new OrganismActions(0,0, board.colorIdEquivalence(ID));
+		oa = new OrganismActions(0,0, board.backgroundColorIdEquivalence(ID));
 	}
 	public List<Point> isTouching(){
 		//check if any other system is near it, if so, return position, then ask board for type of system.

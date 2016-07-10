@@ -17,6 +17,8 @@ public class Starter {
 		Frame f = new Frame();
 		List<Individuals> i = new LinkedList<Individuals>();
 		
+		
+		
 		Virus v = new Virus(1, 100, 200, new Point(x/2, y/2), 0.5,
 				new EnvironmentSettings(220,250,1000,1200,10000), b);
 		
@@ -27,7 +29,7 @@ public class Starter {
 		i.add(c);
 		f.start(b);
 		
-		Stepper stp = new Stepper(b, f, i, 100);
+		Stepper stp = new Stepper(b, f, i, 200);
 		stp.start();
 	}
 
