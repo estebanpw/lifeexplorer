@@ -11,6 +11,19 @@ public class Starter {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		/*
+		GaussianKernel k;
+		int size = 5;
+		int [][] kernel = GaussianKernel.kernel2integer(size, 10, 1, 1.5);
+		for(int i=0;i<size;i++){
+			for(int j=0;j<size;j++){
+				System.out.print(kernel[i][j]+ "  ");
+			}
+			System.out.println();
+		}
+		*/
+		
 		int x = 60, y = 60;
 		int npcs1 = 20;
 		int npcs2 = 10;
@@ -39,6 +52,7 @@ public class Starter {
 		
 		Stepper stp = new Stepper(b, f, i, 200);
 		stp.start();
+		
 	}
 
 }
