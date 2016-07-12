@@ -24,11 +24,14 @@ public class Starter {
 		}
 		*/
 		
+		//Common.printTempMap(GaussianKernel.heatmap(50, 50, 1.5, 6, 30));
+		
+		
 		int x = 60, y = 60;
 		int npcs1 = 20;
 		int npcs2 = 10;
 		
-		Board b = new Board(x, y);
+		Board b = new Board(x, y, 1.5);
 		Frame f = new Frame();
 		
 		

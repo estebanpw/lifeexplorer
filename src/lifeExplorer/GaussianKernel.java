@@ -81,15 +81,40 @@ public class GaussianKernel {
 		return kernel;
 	}
 
-	public static int[][] kernel2integer(int size, int max, int min, double theta){
+	public static double[][] kernel2scale(int size, int max, double theta, int coldOrHot){
 		double [][] kernel = GaussianKernel.gaussian2D(theta, size);
-		int [][] kint = new int[size][size];
+		coldOrHot = (coldOrHot < 0) ? -1 : 1; 
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				kint[i][j] = (int) ((max-min)*size*size*kernel[i][j]);
+				
+				kernel[i][j] = (coldOrHot*size*size*max*kernel[i][j]);
 			}
 		}
-		return kint;
+		return kernel;
 	}
+	
+	public static double[][] heatmap(int x, int y, double theta, int seeds, int clusterSize){
+		double [][] map = new double[x][y];
+		double [][] temp = new double[clusterSize][clusterSize];
+		for(int i=0;i<seeds;i++){
+			int spawnx, spawny;
+			spawnx = Common.randomWithRange(0, x);
+			spawny = Common.randomWithRange(0, y);
+			temp = GaussianKernel.kernel2scale(clusterSize, Common.randomWithRange(0, 10), theta, Common.randomWithRange(-10, 10));
+			Common.printTempMap(temp);
+			for(int w=0;w<clusterSize;w++){
+				for(int z=0;z<clusterSize;z++){
+					int leftx = spawnx - clusterSize/2;
+					int lefty = spawny - clusterSize/2;
+					if(leftx + w >= 0 && leftx + w < x && lefty + z >= 0 && lefty + z < y){
+							map[leftx+w][lefty+z] = temp[w][z];
+					}
+				}
+			}
+		}
+		return map;
+	}
+	
+	
 
 }

@@ -5,15 +5,15 @@ import java.awt.Polygon;
 
 public class Board {
 	private int board[][];
-	private int temps[][];
+	private double temps[][];
 	private int press[][];
 	private int wide, height;
 	
-	public Board(int wide_x, int height_y){
+	public Board(int wide_x, int height_y, double tempTheta){
 		wide = wide_x;
 		height = height_y;
 		board = new int[wide][height];
-		temps = new int[wide][height];
+		temps = GaussianKernel.heatmap(wide, height, tempTheta, Common.randomWithRange(3, 7), Common.randomWithRange(4, 12));
 		press = new int[wide][height];
 		generateBoard();
 	}
