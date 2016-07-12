@@ -1,5 +1,7 @@
 package lifeExplorer;
 
+import java.awt.Color;
+
 public class Common {
 	
 	
@@ -22,5 +24,9 @@ public class Common {
 			}
 			System.out.println();
 		}
+	}
+	
+	public static Color getBgColor(){
+		return new Color(0.9f, 0.9f, 0.9f);
 	}
 }

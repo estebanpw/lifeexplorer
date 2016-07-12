@@ -30,8 +30,10 @@ public class Starter {
 		int x = 60, y = 60;
 		int npcs1 = 20;
 		int npcs2 = 10;
+		int clusterSize = 20;
+		int clusters = 4;
 		
-		Board b = new Board(x, y, 1.5);
+		Board b = new Board(x, y, Math.sqrt(clusterSize), clusterSize, clusters);
 		Frame f = new Frame();
 		
 		

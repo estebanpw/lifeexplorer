@@ -16,11 +16,10 @@ public class Frame {
 	
 	class PaintPanel extends JPanel{
 		Polygon p;
-		Color bc; //background color
 		Color lc; //line color
 		public void paintComponent(Graphics g){
+			//this.setBackground(bc);
 			super.paintComponent(g);
-			this.setBackground(bc);
 			g.setColor(lc);
 			if(p != null) g.fillPolygon(p);
 		}
@@ -65,8 +64,7 @@ public class Frame {
     			
     			panelHolder[i][j] = new PaintPanel();
     			//panelHolder[i][j].setBorder(separator);
-    			//panelHolder[i][j].setBackground(board.colorIdEquivalence(board.getCell(i, j)));
-    			panelHolder[i][j].bc = Color.white;
+    			panelHolder[i][j].setBackground(Common.getBgColor());
     			//frame.add(panelHolder[i][j]);
     			North.add(panelHolder[i][j]);
     		}
@@ -81,10 +79,12 @@ public class Frame {
     }
     public void update(){
     	
+    	double min_t = board.getMinTemp();
+    	double max_t = board.getMaxTemp();
     	
 		for(int i=0; i<board.getWide(); i++){
     		for(int j=0; j<board.getHeight(); j++){
-    			panelHolder[i][j].bc = board.backgroundColorIdEquivalence(0);
+    			panelHolder[i][j].setBackground(board.tempColorEquivalence(board.getTempOfCell(i, j), max_t, min_t));
     			panelHolder[i][j].lc = board.lineColorIdEquivalence(board.getCell(i, j));
     			panelHolder[i][j].p = board.idToPolygon(board.getCell(i, j), panelHolder[i][j].getWidth(), panelHolder[i][j].getHeight());
         		panelHolder[i][j].repaint();

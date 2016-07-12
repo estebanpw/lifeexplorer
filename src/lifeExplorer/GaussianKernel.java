@@ -100,14 +100,20 @@ public class GaussianKernel {
 			int spawnx, spawny;
 			spawnx = Common.randomWithRange(0, x);
 			spawny = Common.randomWithRange(0, y);
-			temp = GaussianKernel.kernel2scale(clusterSize, Common.randomWithRange(0, 10), theta, Common.randomWithRange(-10, 10));
-			Common.printTempMap(temp);
+			temp = GaussianKernel.kernel2scale(clusterSize, 1, theta, Common.randomWithRange(-10, 10));
 			for(int w=0;w<clusterSize;w++){
 				for(int z=0;z<clusterSize;z++){
 					int leftx = spawnx - clusterSize/2;
 					int lefty = spawny - clusterSize/2;
-					if(leftx + w >= 0 && leftx + w < x && lefty + z >= 0 && lefty + z < y){
+					if(leftx + w >= 0 && leftx + w < x && lefty + z >= 0 && lefty + z < y ){
+						if(map[leftx+w][lefty+z] != 0){
+							//mix temps
+							//((Math.abs(map[leftx+w][lefty+z]) > Math.abs(temp[w][z])) ? map[leftx+w][lefty+z] : temp[w][z])
+							map[leftx+w][lefty+z] = map[leftx+w][lefty+z] + temp[w][z]; 
+						}else{
 							map[leftx+w][lefty+z] = temp[w][z];
+						}
+						
 					}
 				}
 			}
