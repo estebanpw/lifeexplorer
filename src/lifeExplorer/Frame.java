@@ -15,20 +15,38 @@ public class Frame {
      */
 	
 	class PaintPanel extends JPanel{
-		Polygon p;
-		Color lc; //line color
+		Polygon[][] p;
+		Color[][] lc; //line color
+		int pivotx, pivoty;
+		public PaintPanel(int width, int height){
+			super();
+			p = new Polygon[width][height];
+			lc = new Color[width][height];
+					
+		}
 		public void paintComponent(Graphics g){
 			//this.setBackground(bc);
 			super.paintComponent(g);
-			g.setColor(lc);
-			if(p != null) g.fillPolygon(p);
+			g.setColor(lc[pivotx][pivoty]);
+			if(p[pivotx][pivoty] != null){
+				//SPECIFY HERE THE COORDINATES OF THE POLYGON!!!
+				g.fillPolygon(p[pivotx][pivoty]);
+			}
+		}
+		
+		public void setColor(Color c){
+			lc[pivotx][pivoty] = c;
+		}
+		
+		public void update(int x, int y){
+			pivotx = x;
+			pivoty = y;
 		}
 	};
 	
 	private Board board;
-	private Border separator;
 	private JFrame frame = new JFrame("Life explorer");
-	private PaintPanel[][] panelHolder;
+	private PaintPanel panelHolder;
 	private JPanel North, South;
 	private JLabel temp, tempDisplay;
 	
@@ -55,20 +73,17 @@ public class Frame {
     }
     
     private void loadImages(){
-    	
-    	separator = BorderFactory.createLineBorder(Color.black, 1);
-    	panelHolder = new PaintPanel[board.getWide()][board.getHeight()];
+    	panelHolder = new PaintPanel(board.getWide(),board.getHeight());
     	
     	for(int i=0; i<board.getWide(); i++){
     		for(int j=0; j<board.getHeight(); j++){
     			
-    			panelHolder[i][j] = new PaintPanel();
-    			//panelHolder[i][j].setBorder(separator);
+    			
     			panelHolder[i][j].setBackground(Common.getBgColor());
-    			//frame.add(panelHolder[i][j]);
-    			North.add(panelHolder[i][j]);
+    			
     		}
     	}
+    	North.add(panelHolder);
     	frame.add(North, BorderLayout.NORTH);
     	frame.add(South, BorderLayout.SOUTH);
     }
@@ -93,6 +108,14 @@ public class Frame {
     	
 		frame.repaint();
     }
+    
+    public void paintAPanel(int i, int j){
+    	panelHolder.update(i, j);
+    	panelHolder.setColor(Color.white);
+    	
+    	panelHolder.repaint();
+    }
+    
     public void start(Board b) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
