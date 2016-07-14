@@ -11,24 +11,53 @@ public class Starter {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int x = 60, y = 60;
 		
-		Board b = new Board(x, y);
+		/*
+		GaussianKernel k;
+		int size = 5;
+		int [][] kernel = GaussianKernel.kernel2integer(size, 10, 1, 1.5);
+		for(int i=0;i<size;i++){
+			for(int j=0;j<size;j++){
+				System.out.print(kernel[i][j]+ "  ");
+			}
+			System.out.println();
+		}
+		*/
+		
+		//Common.printTempMap(GaussianKernel.heatmap(50, 50, 1.5, 6, 30));
+		
+		
+		int x = 60, y = 60;
+		int npcs1 = 20;
+		int npcs2 = 10;
+		int clusterSize = 20;
+		int clusters = 4;
+		
+		Board b = new Board(x, y, Math.sqrt(clusterSize), clusterSize, clusters);
 		Frame f = new Frame();
+		
+		
 		List<Individuals> i = new LinkedList<Individuals>();
 		
-		Virus v = new Virus(1, 100, 200, new Point(x/2, y/2), 0.5,
-				new EnvironmentSettings(220,250,1000,1200,10000), b);
+		for(int k=0;k<npcs1;k++){
+			Virus v = new Virus(1, 100, 200, new Point(x-1-k, y-1-k), 0.5,
+					new EnvironmentSettings(220,250,1000,1200,10000), b);
+			i.add(v);
+		}
+		for(int k=0;k<npcs2;k++){
+			Cell c = new Cell(2, 100, 200, new Point(1+k, 1+k),
+					new EnvironmentSettings(220,250,1000,1200,10000), b);
+			i.add(c);
+		}
 		
-		Cell c = new Cell(2, 100, 200, new Point(x/4, y/4),
-				new EnvironmentSettings(220,250,1000,1200,10000), b);
 		
-		i.add(v);
-		i.add(c);
+		
+		
 		f.start(b);
 		
-		Stepper stp = new Stepper(b, f, i, 100);
+		Stepper stp = new Stepper(b, f, i, 200);
 		stp.start();
+		
 	}
 
 }

@@ -1,6 +1,7 @@
 package lifeExplorer;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -12,10 +13,22 @@ public class Frame {
      * this method should be invoked from the
      * event-dispatching thread.
      */
+	
+	class PaintPanel extends JPanel{
+		Polygon p;
+		Color lc; //line color
+		public void paintComponent(Graphics g){
+			//this.setBackground(bc);
+			super.paintComponent(g);
+			g.setColor(lc);
+			if(p != null) g.fillPolygon(p);
+		}
+	};
+	
 	private Board board;
 	private Border separator;
 	private JFrame frame = new JFrame("Life explorer");
-	private JPanel[][] panelHolder;
+	private PaintPanel[][] panelHolder;
 	private JPanel North, South;
 	private JLabel temp, tempDisplay;
 	
@@ -42,13 +55,16 @@ public class Frame {
     }
     
     private void loadImages(){
+    	
     	separator = BorderFactory.createLineBorder(Color.black, 1);
-    	panelHolder = new JPanel[board.getWide()][board.getHeight()];
+    	panelHolder = new PaintPanel[board.getWide()][board.getHeight()];
+    	
     	for(int i=0; i<board.getWide(); i++){
     		for(int j=0; j<board.getHeight(); j++){
-    			panelHolder[i][j] = new JPanel();
+    			
+    			panelHolder[i][j] = new PaintPanel();
     			//panelHolder[i][j].setBorder(separator);
-    			panelHolder[i][j].setBackground(board.colorIdEquivalence(board.getCell(i, j)));
+    			panelHolder[i][j].setBackground(Common.getBgColor());
     			//frame.add(panelHolder[i][j]);
     			North.add(panelHolder[i][j]);
     		}
@@ -62,13 +78,19 @@ public class Frame {
     	tempDisplay.setText(Integer.toString(t));
     }
     public void update(){
+    	
+    	double min_t = board.getMinTemp();
+    	double max_t = board.getMaxTemp();
+    	
 		for(int i=0; i<board.getWide(); i++){
     		for(int j=0; j<board.getHeight(); j++){
-    			panelHolder[i][j].setBackground(board.colorIdEquivalence(board.getCell(i, j))); 
-    			panelHolder[i][j].validate();
+    			panelHolder[i][j].setBackground(board.tempColorEquivalence(board.getTempOfCell(i, j), max_t, min_t));
+    			panelHolder[i][j].lc = board.lineColorIdEquivalence(board.getCell(i, j));
+    			panelHolder[i][j].p = board.idToPolygon(board.getCell(i, j), panelHolder[i][j].getWidth(), panelHolder[i][j].getHeight());
         		panelHolder[i][j].repaint();
     		}
     	}
+    	
 		frame.repaint();
     }
     public void start(Board b) {

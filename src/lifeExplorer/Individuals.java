@@ -15,7 +15,7 @@ public abstract class Individuals {
 	protected double replicationPace;
 	protected EnvironmentSettings eS;
 	protected OrganismActions oa; 
-	
+	protected Point objective;
 	
 	public Individuals(int ID, int lCycles, int mCycles, Point pos, Creatures crea, double repPace, EnvironmentSettings envS, Board b){
 		systemID = ID;
@@ -26,7 +26,7 @@ public abstract class Individuals {
 		replicationPace = repPace;
 		eS = envS;
 		board = b;
-		oa = new OrganismActions(0,0, board.colorIdEquivalence(ID));
+		oa = new OrganismActions(0,0, board.backgroundColorIdEquivalence(ID));
 	}
 	public List<Point> isTouching(){
 		//check if any other system is near it, if so, return position, then ask board for type of system.
@@ -84,4 +84,5 @@ public abstract class Individuals {
 	}
 	
 	public abstract OrganismActions lifeStep();
+	
 }
