@@ -76,6 +76,7 @@ public abstract class Individuals {
 	}
 	
 	public Point headToHot(Point p){
+		
 		return null;
 	}
 	

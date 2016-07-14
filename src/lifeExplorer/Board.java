@@ -52,6 +52,10 @@ public class Board {
 		return 0;
 	}
 	
+	public double[][] getTempMap(){
+		return temps;
+	}
+	
 	public Polygon idToPolygon(int id, int width, int height){
 		Polygon p = new Polygon();
 		switch(id){
