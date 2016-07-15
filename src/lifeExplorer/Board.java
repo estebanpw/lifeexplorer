@@ -19,7 +19,7 @@ public class Board {
 	}
 	
 	public int update(int cellID, int x, int y, int prevx, int prevy){
-		if(x >= 0 && y >= 0 && x < wide && y < height && x >= 0 && y >= 0 && board[x][y] == 0){
+		if(x >= 0 && y >= 0 && x < wide && y < height && board[x][y] == 0){
 			board[x][y] = cellID;
 			board[prevx][prevy] = 0;
 			return 1;
@@ -28,7 +28,7 @@ public class Board {
 	}
 	
 	public int updateEnv(double temperature, int pressure, int x, int y){
-		if(x >= 0 && y >= 0 && x < wide && y < height && x >= 0 && y >= 0){
+		if(x >= 0 && y >= 0 && x < wide && y < height){
 			temps[x][y] = temperature;
 			press[x][y] = pressure;
 			return 1;
