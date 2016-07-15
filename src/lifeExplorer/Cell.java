@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class Cell extends Individuals{
 	
-	public Cell(int ID, int lCycles, int mCycles, Point pos, EnvironmentSettings envS, Board board) {
-		super(ID, lCycles, mCycles, pos, Creatures.CELL, new Random().nextGaussian(), envS, board);
+	public Cell(int lCycles, int mCycles, Point pos, EnvironmentSettings envS, Board board) {
+		super(lCycles, mCycles, pos, Creatures.CELL, new Random().nextGaussian(), envS, board);
 	}
 
 	@Override

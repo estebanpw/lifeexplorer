@@ -8,7 +8,6 @@ import java.util.List;
 public abstract class Individuals {
 	//bacteria, hostCell and virus. Bacteria reproduces by fission; same with hostCell; virus moves.
 	protected Board board;
-	protected int systemID;
 	protected Creatures creature;
 	protected int lifeCycles, maxCycles;
 	protected Point position;
@@ -17,8 +16,7 @@ public abstract class Individuals {
 	protected OrganismActions oa; 
 	protected Point objective;
 	
-	public Individuals(int ID, int lCycles, int mCycles, Point pos, Creatures crea, double repPace, EnvironmentSettings envS, Board b){
-		systemID = ID;
+	public Individuals(int lCycles, int mCycles, Point pos, Creatures crea, double repPace, EnvironmentSettings envS, Board b){
 		lifeCycles = lCycles;
 		maxCycles = mCycles;
 		position = pos;
@@ -26,7 +24,7 @@ public abstract class Individuals {
 		replicationPace = repPace;
 		eS = envS;
 		board = b;
-		oa = new OrganismActions(0,0, board.backgroundColorIdEquivalence(ID));
+		oa = new OrganismActions(0,0, board.backgroundColorIdEquivalence(creature.ordinal()));
 	}
 	public List<Point> isTouching(){
 		//check if any other system is near it, if so, return position, then ask board for type of system.
