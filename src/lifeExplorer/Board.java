@@ -1,6 +1,7 @@
 package lifeExplorer;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.Polygon;
 
 public class Board {
@@ -90,6 +91,20 @@ public class Board {
 			}
 		}
 		return max;
+	}
+	
+	public Point getMaxTemPos(){
+		Point maxP = new Point(0,0);
+		double max = temps[0][0];
+		for(int i=0;i<wide;i++){
+			for(int j=0;j<height;j++){
+				if(max < temps[i][j]){ 
+					max = temps[i][j];
+					maxP.setLocation(i, j);
+				}
+			}
+		}
+		return maxP;
 	}
 	
 	public double getMinTemp(){

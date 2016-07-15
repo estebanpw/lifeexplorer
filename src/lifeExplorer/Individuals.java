@@ -73,9 +73,9 @@ public abstract class Individuals {
 		return rp;
 	}
 	
-	public Point headToHot(Point p){
-		
-		return null;
+	public Point headToHot(){
+		Point target = board.getMaxTemPos();
+		return headToPoint(target);
 	}
 	
 	public Point goAnywhere(){
