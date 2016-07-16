@@ -4,6 +4,7 @@ public class Chunk {
 	private int pressure, radiation, x, y;
 	private double temperature;
 	private boolean occupied;
+	private int ID;
 	
 	public Chunk(double temperature, int pressure, int radiation, int x, int y){
 		this.temperature = temperature;
@@ -12,6 +13,7 @@ public class Chunk {
 		this.x = x;
 		this.y = y;
 		occupied = false;
+		setID(0);
 	}
 	
 	public Chunk(int x, int y){
@@ -68,6 +70,14 @@ public class Chunk {
 	
 	public boolean getOccupied(){
 		return occupied;
+	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
 	}
 	
 }
