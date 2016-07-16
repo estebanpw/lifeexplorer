@@ -50,6 +50,9 @@ public class Starter {
 			i.add(c);
 		}
 		
+		Rabbit r = new Rabbit(100, 200, new Point(30,30), 0.5, new EnvironmentSettings(220,250,1000,1200,10000), b);
+		i.add(r);
+		
 		f.start(b);
 		
 		Stepper stp = new Stepper(b, f, i, 200);

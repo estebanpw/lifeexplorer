@@ -2,8 +2,10 @@ package lifeExplorer;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public abstract class Individuals {
 	//bacteria, hostCell and virus. Bacteria reproduces by fission; same with hostCell; virus moves.
@@ -71,6 +73,35 @@ public abstract class Individuals {
 		if(p.y > position.y) rp.y++;
 		if(p.y < position.y) rp.y--;
 		return rp;
+	}
+	
+	public Map<Point, Creatures> getCreaturesAround(){
+		Map<Point, Creatures> mpc = new HashMap<Point, Creatures>();
+		List<Point> lp = this.isTouching();
+		for(Point p : lp){
+			
+			if(!this.whoIsThere(p).equals(Creatures.ZERO)){
+				mpc.put(p, whoIsThere(p));
+			}
+			
+		}
+		return mpc;
+	}
+	
+	public Point avoidParticularEnemy(Creatures c){
+		Map<Point, Creatures> mpc = this.getCreaturesAround();
+		Point reverse;
+		for(Point p : mpc.keySet()){
+			if(mpc.get(p).equals(c)){
+				reverse = new Point(headToPoint(p).x - position.x, headToPoint(p).y - position.y);
+				return new Point(position.x - reverse.x, position.y - reverse.y); 
+			}
+		}
+		return goAnywhere();
+	}
+	
+	public Creatures whoIsThere(Point p){
+		return Common.int2creatures(board.getCell(p.x, p.y));
 	}
 	
 	public Point headToHot(){

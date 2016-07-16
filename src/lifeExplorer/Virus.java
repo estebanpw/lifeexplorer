@@ -13,11 +13,9 @@ public class Virus extends Individuals{
 
 	@Override
 	public OrganismActions lifeStep(){
-		Point p  = this.headToHot();	
+		Point p  = this.headToHot();
 		oa.nx = p.x;
 		oa.ny = p.y;
 		return oa;
-		// TODO Auto-generated method stub
-		
 	}
 }

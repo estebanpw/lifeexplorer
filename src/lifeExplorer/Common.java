@@ -34,6 +34,10 @@ public class Common {
 
 	public static Polygon idToPolygon(int id, int width, int height){
 		Polygon p = new Polygon();
+		//REMOVE THIS IN THE FUTURE
+		if(Common.int2creatures(id).equals(Creatures.RABBIT)){
+			id = 2;
+		}
 		switch(id){
 		case 0: return null;
 		case 1: {
@@ -81,6 +85,8 @@ public class Common {
     	case 0: return Color.black;
     	case 1: return Color.MAGENTA;
     	case 2: return Color.green;
+    	case 3: return Color.cyan;
+    	case 4: return Color.black;
     	}
     	return Common.getBgColor();
     }
@@ -93,4 +99,16 @@ public class Common {
     	}
     	return Color.magenta;
     }
+	
+	public static Creatures int2creatures(int id){
+		switch(id){
+		case 0: return Creatures.ZERO;
+		case 1: return Creatures.VIRUS;
+		case 2: return Creatures.CELL;
+		case 3: return Creatures.BACTERIA;
+		case 4: return Creatures.RABBIT;
+		}
+		return Creatures.ZERO;
+	}
+	
 }
