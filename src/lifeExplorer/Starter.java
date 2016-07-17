@@ -40,18 +40,18 @@ public class Starter {
 		List<Individuals> i = new LinkedList<Individuals>();
 		
 		for(int k=0;k<npcs1;k++){
-			Virus v = new Virus(1, 100, 200, new Point(x-1-k, y-1-k), 0.5,
+			Virus v = new Virus(100, 200, new Point(x-1-k, y-1-k), 0.5,
 					new EnvironmentSettings(220,250,1000,1200,10000), b);
 			i.add(v);
 		}
 		for(int k=0;k<npcs2;k++){
-			Cell c = new Cell(2, 100, 200, new Point(1+k, 1+k),
+			Cell c = new Cell(100, 200, new Point(1+k, 1+k),
 					new EnvironmentSettings(220,250,1000,1200,10000), b);
 			i.add(c);
 		}
 		
-		
-		
+		Rabbit r = new Rabbit(100, 200, new Point(30,30), 0.5, new EnvironmentSettings(220,250,1000,1200,10000), b);
+		i.add(r);
 		
 		f.start(b);
 		

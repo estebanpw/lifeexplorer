@@ -99,9 +99,9 @@ public class Frame {
     	
 		for(int i=0; i<board.getWide(); i++){
     		for(int j=0; j<board.getHeight(); j++){
-    			panelHolder[i][j].setBackground(board.tempColorEquivalence(board.getTempOfCell(i, j), max_t, min_t));
-    			panelHolder[i][j].lc = board.lineColorIdEquivalence(board.getCell(i, j));
-    			panelHolder[i][j].p = board.idToPolygon(board.getCell(i, j), panelHolder[i][j].getWidth(), panelHolder[i][j].getHeight());
+    			panelHolder[i][j].setBackground(Common.tempColorEquivalence(board.getTempOfCell(i, j), max_t, min_t));
+    			panelHolder[i][j].lc = Common.lineColorIdEquivalence(board.getCell(i, j));
+    			panelHolder[i][j].p = Common.idToPolygon(board.getCell(i, j), panelHolder[i][j].getWidth(), panelHolder[i][j].getHeight());
         		panelHolder[i][j].repaint();
     		}
     	}
