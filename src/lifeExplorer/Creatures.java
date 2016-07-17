@@ -1,5 +1,5 @@
 package lifeExplorer;
 
 public enum Creatures {
-	ZERO, VIRUS, CELL, BACTERIA, RABBIT;
+	BACKGROUND, ZERO, VIRUS, CELL, BACTERIA, RABBIT;
 }

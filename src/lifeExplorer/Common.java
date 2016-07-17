@@ -39,7 +39,13 @@ public class Common {
 			id = 2;
 		}
 		switch(id){
-		case 0: return null;
+		case 0: {
+			//A background square
+			p.addPoint(0, 0);
+			p.addPoint(width, 0);
+			p.addPoint(width, height);
+			p.addPoint(0, height);
+			}
 		case 1: {
 			//a triangle
 			p.addPoint(1,height-1);
@@ -102,7 +108,7 @@ public class Common {
 	
 	public static Creatures int2creatures(int id){
 		switch(id){
-		case 0: return Creatures.ZERO;
+		case 0: return Creatures.BACKGROUND;
 		case 1: return Creatures.VIRUS;
 		case 2: return Creatures.CELL;
 		case 3: return Creatures.BACTERIA;
