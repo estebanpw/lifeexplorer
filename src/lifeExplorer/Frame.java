@@ -1,10 +1,8 @@
 package lifeExplorer;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 import javax.swing.*;
-import javax.swing.border.Border;
  
 /* FrameDemo.java requires no other files. */
 public class Frame {
@@ -34,18 +32,21 @@ public class Frame {
 
 			super.paintComponent(g);
 			
+			//Use double buffer strategy to paint
+			Image offscreen = createImage(width*cellSize, height*cellSize);
+			Graphics gg = offscreen.getGraphics();
 			//Paint background
 			
 			for(int x=0; x<width; x++){
 				for(int y=0; y<height; y++){
-					g.setColor(bglc[x][y]);
+					gg.setColor(bglc[x][y]);
 					bg = Common.idToPolygon(0, cellSize, cellSize);
 					for(int len=0; len<bg.npoints; len++){
 						bg.xpoints[len] += (int)x * (int)width/cellSize;
 						bg.ypoints[len] += (int)y * (int)height/cellSize;
 						
 					}
-					g.fillPolygon(bg);
+					gg.fillPolygon(bg);
 				}
 			}
 			
@@ -53,17 +54,19 @@ public class Frame {
 			for(int x=0; x<width; x++){
 				for(int y=0; y<height; y++){
 					if(p[x][y] != null){
-						g.setColor(lc[x][y]);
+						gg.setColor(lc[x][y]);
 						for(int len=0; len<p[x][y].npoints; len++){
 							p[x][y].xpoints[len] += (int)x * (int)width/cellSize;
 							p[x][y].ypoints[len] += (int)y * (int)height/cellSize;
 							
 						}
-						g.fillPolygon(p[x][y]);
+						gg.fillPolygon(p[x][y]);
 					}
 				}
 			}
 			
+			//Now paint the buffered image
+			g.drawImage(offscreen, 0, 0, this);
 		}
 		public void colorBackground(int x, int y, Color c){
 			bglc[x][y] = c;
@@ -108,6 +111,7 @@ public class Frame {
     private void loadImages(){
     	panelHolder = new PaintPanel(board.getWide(),board.getHeight(), this.cellSize);
     	panelHolder.setPreferredSize(new Dimension(this.board.getWide()*cellSize, this.board.getHeight()*cellSize));
+    	
     	
     	for(int i=0; i<board.getWide(); i++){
     		for(int j=0; j<board.getHeight(); j++){
