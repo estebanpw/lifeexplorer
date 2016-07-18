@@ -62,6 +62,10 @@ public abstract class Individuals {
 		return lTouching;
 	}
 	
+	public Creatures getType(){
+		return this.creature;
+	}
+	
 	public Point goSouth(){
 		return new Point(position.x+1, position.y);
 	}

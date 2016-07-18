@@ -16,23 +16,40 @@ public class Frame {
 	
 	class PaintPanel extends JPanel{
 		Polygon p[][];
+		Polygon bg;
 		Color lc[][]; //line color
+		Color bglc[][]; //line color
 		int width, height;
 		int cellSize;
 		public PaintPanel(int width, int height, int cellSize){
 			super();
 			p = new Polygon[width][height];
 			lc = new Color[width][height];
+			bglc = new Color[width][height];
 			this.width = width;
 			this.height = height;
 			this.cellSize = cellSize;
 		}
 		public void paintComponent(Graphics g){
-			//this.setBackground(bc);
+
 			super.paintComponent(g);
 			
-		
-			//SPECIFY HERE THE COORDINATES OF THE POLYGON!!!
+			//Paint background
+			
+			for(int x=0; x<width; x++){
+				for(int y=0; y<height; y++){
+					g.setColor(bglc[x][y]);
+					bg = Common.idToPolygon(0, cellSize, cellSize);
+					for(int len=0; len<bg.npoints; len++){
+						bg.xpoints[len] += (int)x * (int)width/cellSize;
+						bg.ypoints[len] += (int)y * (int)height/cellSize;
+						
+					}
+					g.fillPolygon(bg);
+				}
+			}
+			
+			//Paint figures
 			for(int x=0; x<width; x++){
 				for(int y=0; y<height; y++){
 					if(p[x][y] != null){
@@ -46,7 +63,10 @@ public class Frame {
 					}
 				}
 			}
-				
+			
+		}
+		public void colorBackground(int x, int y, Color c){
+			bglc[x][y] = c;
 		}
 		
 		public void updateColor(int x, int y, Color c){
@@ -68,7 +88,6 @@ public class Frame {
     public void create() {
         //Create and set up the window
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        GridLayout gl = new GridLayout(board.getWide(), board.getHeight());
     	frame.setLayout(new BorderLayout());
     	
     	North = new JPanel();
@@ -76,7 +95,6 @@ public class Frame {
     	temp = new JLabel("Actual temperature (celsius): ");
     	tempDisplay = new JLabel("No world created yet.");
        
-        North.setLayout(gl);
         South.setLayout(new FlowLayout());
         South.add(temp);
         South.add(tempDisplay);
@@ -89,11 +107,11 @@ public class Frame {
     
     private void loadImages(){
     	panelHolder = new PaintPanel(board.getWide(),board.getHeight(), this.cellSize);
+    	panelHolder.setPreferredSize(new Dimension(this.board.getWide()*cellSize, this.board.getHeight()*cellSize));
     	
     	for(int i=0; i<board.getWide(); i++){
     		for(int j=0; j<board.getHeight(); j++){
-    			panelHolder.updateColor(i, j, Color.white);
-    			panelHolder.updatePoly(i, j, 0);
+    			panelHolder.colorBackground(i, j, Color.white);
     		}
     	}
     	panelHolder.repaint();
@@ -102,6 +120,7 @@ public class Frame {
     	North.add(panelHolder);
     	frame.add(North, BorderLayout.NORTH);
     	frame.add(South, BorderLayout.SOUTH);
+    	
     }
     
     
@@ -117,8 +136,16 @@ public class Frame {
     	
 		for(int i=0; i<board.getWide(); i++){
     		for(int j=0; j<board.getHeight(); j++){
-    			panelHolder.updateColor(i, j, Common.tempColorEquivalence(board.getTempOfCell(i, j), max_t, min_t));
-    			panelHolder.updatePoly(i, j, board.getCell(i, j));
+    			
+    			panelHolder.colorBackground(i, j, Common.tempColorEquivalence(board.getTempOfCell(i, j), max_t, min_t));
+    			
+    			if(board.getCell(i, j) > 0){
+    				panelHolder.updateColor(i, j, Common.lineColorIdEquivalence(board.getCell(i, j)));
+    				panelHolder.updatePoly(i, j, board.getCell(i, j));
+    			}else{
+    				panelHolder.updatePoly(i, j, -1);
+    			}
+    			
     			//panelHolder[i][j].setBackground(Common.tempColorEquivalence(board.getTempOfCell(i, j), max_t, min_t));
     			//panelHolder[i][j].lc = Common.lineColorIdEquivalence(board.getCell(i, j));
     			//panelHolder[i][j].p = Common.idToPolygon(board.getCell(i, j), panelHolder[i][j].getWidth(), panelHolder[i][j].getHeight());
@@ -126,7 +153,7 @@ public class Frame {
     		}
     	}
 		panelHolder.repaint();
-		frame.repaint();
+
     }
     
     

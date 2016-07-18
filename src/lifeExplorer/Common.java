@@ -34,17 +34,18 @@ public class Common {
 
 	public static Polygon idToPolygon(int id, int width, int height){
 		Polygon p = new Polygon();
-		//REMOVE THIS IN THE FUTURE
+
 		if(Common.int2creatures(id).equals(Creatures.RABBIT)){
 			id = 2;
 		}
 		switch(id){
 		case 0: {
 			//A background square
-			p.addPoint(0, 0);
-			p.addPoint(width, 0);
-			p.addPoint(width, height);
-			p.addPoint(0, height);
+			p.addPoint(1, 1);
+			p.addPoint(width-1, 1);
+			p.addPoint(width-1, height-1);
+			p.addPoint(1, height-1);
+			return p;
 			}
 		case 1: {
 			//a triangle
@@ -69,7 +70,6 @@ public class Common {
 	}
 
 	public static Color tempColorEquivalence(double t, double max_t, double min_t){
-
 		if(t > 0){
 			//Hot
 			//if(t/max_t < 0.00001) return Common.getBgColor();
@@ -88,8 +88,8 @@ public class Common {
 
 	public static Color lineColorIdEquivalence(int id){
     	switch(id){
-    	case 0: return Color.black;
-    	case 1: return Color.MAGENTA;
+    	case 0: return Color.white;
+    	case 1: return Color.magenta;
     	case 2: return Color.green;
     	case 3: return Color.cyan;
     	case 4: return Color.black;
@@ -105,6 +105,15 @@ public class Common {
     	}
     	return Color.magenta;
     }
+	
+	public static int creatures2int(Creatures c){
+		if(c.equals(Creatures.BACKGROUND)) return 0;
+		if(c.equals(Creatures.VIRUS)) return 1;
+		if(c.equals(Creatures.CELL)) return 2;
+		if(c.equals(Creatures.BACTERIA)) return 3;
+		if(c.equals(Creatures.RABBIT)) return 4;
+		return 0;
+	}
 	
 	public static Creatures int2creatures(int id){
 		switch(id){
