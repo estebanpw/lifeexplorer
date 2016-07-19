@@ -18,4 +18,11 @@ public class Rabbit extends Individuals{
 		return oa;
 	}
 
+	@Override
+	public boolean addReplicationStep(){
+		this.replicationAcum += this.replicationPace;
+		if(replicationAcum > 1.0) return true;
+		return false;
+	}
+
 }

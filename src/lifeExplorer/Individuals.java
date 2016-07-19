@@ -119,11 +119,7 @@ public abstract class Individuals {
 		return new Point(position.x+ ((-0.5 + Math.random() >= 0) ? 1 : -1), position.y+((-0.5 + Math.random() >= 0) ? 1 : -1));		
 	}
 	
-	public boolean addReplicationStep(){
-		this.replicationAcum += this.replicationPace;
-		if(replicationAcum > 1.0) return true;
-		return false;
-	}
+	public abstract boolean addReplicationStep();
 	
 	public abstract OrganismActions lifeStep();
 	
