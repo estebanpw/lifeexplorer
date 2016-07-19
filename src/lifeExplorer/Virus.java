@@ -16,6 +16,7 @@ public class Virus extends Individuals{
 		Point p  = this.headToHot();
 		oa.nx = p.x;
 		oa.ny = p.y;
+		oa.timeToReplicate = this.addReplicationStep();
 		return oa;
 	}
 }

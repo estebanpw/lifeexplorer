@@ -14,6 +14,7 @@ public class Cell extends Individuals{
 		Point p  = this.goAnywhere();
 		oa.nx = p.x;
 		oa.ny = p.y;
+		oa.timeToReplicate = this.addReplicationStep();
 		return oa;
 		// TODO Auto-generated method stub
 		

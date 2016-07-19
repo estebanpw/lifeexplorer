@@ -13,10 +13,11 @@ public abstract class Individuals {
 	protected Creatures creature;
 	protected int lifeCycles, maxCycles;
 	protected Point position;
-	protected double replicationPace;
+	protected double replicationPace, replicationAcum;
 	protected EnvironmentSettings eS;
 	protected OrganismActions oa; 
 	protected Point objective;
+	
 	
 	public Individuals(int lCycles, int mCycles, Point pos, Creatures crea, double repPace, EnvironmentSettings envS, Board b){
 		lifeCycles = lCycles;
@@ -26,6 +27,7 @@ public abstract class Individuals {
 		replicationPace = repPace;
 		eS = envS;
 		board = b;
+		replicationAcum = 0.0;
 		oa = new OrganismActions(0,0, Common.backgroundColorIdEquivalence(creature.ordinal()));
 	}
 	public List<Point> isTouching(){
@@ -115,6 +117,12 @@ public abstract class Individuals {
 	
 	public Point goAnywhere(){
 		return new Point(position.x+ ((-0.5 + Math.random() >= 0) ? 1 : -1), position.y+((-0.5 + Math.random() >= 0) ? 1 : -1));		
+	}
+	
+	public boolean addReplicationStep(){
+		this.replicationAcum += this.replicationPace;
+		if(replicationAcum > 1.0) return true;
+		return false;
 	}
 	
 	public abstract OrganismActions lifeStep();

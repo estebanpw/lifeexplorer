@@ -1,5 +1,6 @@
 package lifeExplorer;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Stepper extends Thread{
@@ -18,14 +19,18 @@ public class Stepper extends Thread{
 	
 	public void run(){
 		OrganismActions oa;
+		List<Individuals> indiToAdd = new LinkedList<Individuals>();
 		while(nCycles > 0){
+			indiToAdd.clear();
 			for(Individuals i : indv){
 				oa = i.lifeStep();
 				if(b.update(Common.creatures2int(i.getType()), oa.nx, oa.ny, i.position.x, i.position.y) == 1){
 					i.position.x = oa.nx;
 					i.position.y = oa.ny;
 				}
+				
 			}
+			
 			f.update();
 			nCycles--;
 			try {

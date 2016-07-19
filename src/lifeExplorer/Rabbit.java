@@ -14,6 +14,7 @@ public class Rabbit extends Individuals{
 		Point p  = this.avoidParticularEnemy(Creatures.VIRUS);
 		oa.nx = p.x;
 		oa.ny = p.y;
+		oa.timeToReplicate = this.addReplicationStep();
 		return oa;
 	}
 
