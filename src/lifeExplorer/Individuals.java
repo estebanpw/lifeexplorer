@@ -119,6 +119,8 @@ public abstract class Individuals {
 		return new Point(position.x+ ((-0.5 + Math.random() >= 0) ? 1 : -1), position.y+((-0.5 + Math.random() >= 0) ? 1 : -1));		
 	}
 	
+	public abstract Individuals copyObject();
+	
 	public abstract boolean addReplicationStep();
 	
 	public abstract OrganismActions lifeStep();

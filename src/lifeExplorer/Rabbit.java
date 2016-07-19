@@ -19,6 +19,13 @@ public class Rabbit extends Individuals{
 	}
 
 	@Override
+	public Individuals copyObject() {
+		// TODO Auto-generated method stub
+		Rabbit c = new Rabbit(this.lifeCycles, this.maxCycles, this.position, this.replicationPace, this.eS, this.board);
+		return c;
+	}
+	
+	@Override
 	public boolean addReplicationStep(){
 		this.replicationAcum += this.replicationPace;
 		if(replicationAcum > 1.0) return true;

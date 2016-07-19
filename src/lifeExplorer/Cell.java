@@ -32,5 +32,12 @@ public class Cell extends Individuals{
 		}
 		return false;
 	}
+
+	@Override
+	public Individuals copyObject() {
+		// TODO Auto-generated method stub
+		Cell c = new Cell(this.lifeCycles, this.maxCycles, this.position, this.eS, this.board);
+		return c;
+	}
 	
 }

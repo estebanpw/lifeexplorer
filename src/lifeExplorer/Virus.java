@@ -21,9 +21,18 @@ public class Virus extends Individuals{
 	}
 
 	@Override
+	public Individuals copyObject() {
+		// TODO Auto-generated method stub
+		Virus c = new Virus(this.lifeCycles, this.maxCycles, this.position, this.replicationPace, this.eS, this.board);
+		return c;
+	}
+
+	@Override
 	public boolean addReplicationStep(){
 		this.replicationAcum += this.replicationPace;
-		if(replicationAcum > 1.0) return true;
+		if(replicationAcum > 1.0){
+			return true;
+		}
 		return false;
 	}
 }
