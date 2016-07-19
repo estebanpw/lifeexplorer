@@ -28,8 +28,7 @@ public class Starter {
 		
 		
 		int x = 80, y = 80;
-		int npcs1 = 20;
-		int npcs2 = 10;
+		int npcs1 = 20, npcs2 = 10, npcs3 = 5;
 		int clusterSize = 20;
 		int clusters = 4;
 		int pixelsPerCell = 10;
@@ -50,9 +49,11 @@ public class Starter {
 					new EnvironmentSettings(220,250,1000,1200,10000), b);
 			i.add(c);
 		}
+		for(int k=0;k<npcs3;k++){
+			Rabbit r = new Rabbit(100, 200, new Point(x/2+k,y/2+k), 0.5, new EnvironmentSettings(220,250,1000,1200,10000), b);
+			i.add(r);
+		}
 		
-		Rabbit r = new Rabbit(100, 200, new Point(30,30), 0.5, new EnvironmentSettings(220,250,1000,1200,10000), b);
-		i.add(r);
 		
 		f.start(b, pixelsPerCell);
 		
