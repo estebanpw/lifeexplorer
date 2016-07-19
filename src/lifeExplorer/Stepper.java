@@ -36,10 +36,9 @@ public class Stepper extends Thread{
 					if( newSpawn != null){
 						i.replicationAcum = 0.0;
 						//Copy individual
-						//Individuals copyInd = i;
-						Cell c = new Cell(100, 200, newSpawn,
-								new EnvironmentSettings(220,250,1000,1200,10000), b);
-						indiToAdd.add(c);
+						Individuals copyInd = i.copyObject();
+						copyInd.position = newSpawn;
+						indiToAdd.add(copyInd);
 					}
 				}
 			}
