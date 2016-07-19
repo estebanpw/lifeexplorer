@@ -5,11 +5,9 @@ import java.util.Random;
 
 public class Cell extends Individuals{
 	
-	private double REP_POWER;
 	
-	public Cell(int lCycles, int mCycles, Point pos, EnvironmentSettings envS, Board board) {
-		super(lCycles, mCycles, pos, Creatures.CELL, Math.abs(new Random().nextGaussian()), envS, board);
-		REP_POWER = 10;
+	public Cell(int lCycles, int mCycles, Point pos, double repMax, EnvironmentSettings envS, Board board) {
+		super(lCycles, mCycles, pos, Creatures.CELL, Math.abs(new Random().nextGaussian()), repMax, envS, board);
 	}
 
 	@Override
@@ -26,8 +24,7 @@ public class Cell extends Individuals{
 	@Override
 	public boolean addReplicationStep(){
 		this.replicationAcum += this.replicationPace;
-		if(replicationAcum > REP_POWER){
-			REP_POWER = 10000000;
+		if(replicationAcum > repMax){
 			return true;
 		}
 		return false;
@@ -36,7 +33,7 @@ public class Cell extends Individuals{
 	@Override
 	public Individuals copyObject() {
 		// TODO Auto-generated method stub
-		Cell c = new Cell(this.lifeCycles, this.maxCycles, this.position, this.eS, this.board);
+		Cell c = new Cell(this.lifeCycles, this.maxCycles, this.position, this.repMax, this.eS, this.board);
 		return c;
 	}
 	

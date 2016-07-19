@@ -8,7 +8,7 @@ public class Stepper extends Thread{
 	private Board b;
 	private Frame f;
 	private List<Individuals> indv;
-	int nCycles = 1000;
+	int nCycles = 1000, cCycles;
 	long delay;
 	
 	public Stepper(Board board, Frame frame, List <Individuals> individuals, long ms){
@@ -16,12 +16,13 @@ public class Stepper extends Thread{
 		f = frame;
 		indv = individuals;
 		delay = ms;
+		cCycles = 0;
 	}
 	
 	public void run(){
 		OrganismActions oa;
 		List<Individuals> indiToAdd = new LinkedList<Individuals>();
-		while(nCycles > 0){
+		while(cCycles < nCycles){
 			indiToAdd.clear();
 			//Update each individual
 			for(Individuals i : indv){
@@ -46,8 +47,10 @@ public class Stepper extends Thread{
 			for(Individuals i : indiToAdd){
 				indv.add(i);
 			}
+			
+			f.setCycle(cCycles);
 			f.update();
-			nCycles--;
+			cCycles++;
 			try {
 				Thread.sleep(delay);
 			} catch (InterruptedException e) {

@@ -13,13 +13,13 @@ public abstract class Individuals {
 	protected Creatures creature;
 	protected int lifeCycles, maxCycles;
 	protected Point position;
-	protected double replicationPace, replicationAcum;
+	protected double replicationPace, replicationAcum, repMax;
 	protected EnvironmentSettings eS;
 	protected OrganismActions oa; 
 	protected Point objective;
 	
 	
-	public Individuals(int lCycles, int mCycles, Point pos, Creatures crea, double repPace, EnvironmentSettings envS, Board b){
+	public Individuals(int lCycles, int mCycles, Point pos, Creatures crea, double repPace, double repMax, EnvironmentSettings envS, Board b){
 		lifeCycles = lCycles;
 		maxCycles = mCycles;
 		position = pos;
@@ -28,6 +28,7 @@ public abstract class Individuals {
 		eS = envS;
 		board = b;
 		replicationAcum = 0.0;
+		this.repMax = repMax;
 		oa = new OrganismActions(0,0, Common.backgroundColorIdEquivalence(creature.ordinal()));
 	}
 	public List<Point> isTouching(){
