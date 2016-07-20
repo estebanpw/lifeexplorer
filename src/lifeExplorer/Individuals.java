@@ -116,8 +116,11 @@ public abstract class Individuals {
 		return Common.int2creatures(board.getCell(p.x, p.y));
 	}
 	
-	public Point headToHot(){
+	public Point headToHot(int mhDistance){
 		Point target = board.getMaxTemPos();
+		if(Common.manhattanDistance(target.x, target.y, this.position.x, this.position.y) < mhDistance){
+			return goAnywhere();
+		}
 		return headToPoint(target);
 	}
 	

@@ -13,7 +13,7 @@ public class Virus extends Individuals{
 
 	@Override
 	public OrganismActions lifeStep(){
-		Point p  = this.headToHot();
+		Point p  = this.headToHot(Common.randomWithRange(5, 15));
 		oa.nx = p.x;
 		oa.ny = p.y;
 		oa.timeToReplicate = this.addReplicationStep();
