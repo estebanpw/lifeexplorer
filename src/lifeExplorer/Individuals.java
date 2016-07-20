@@ -104,7 +104,12 @@ public abstract class Individuals {
 				return new Point(position.x - reverse.x, position.y - reverse.y); 
 			}
 		}
-		return goAnywhere();
+		//In case there are no enemies go somewhere particularly
+		if(this.objective == null || this.objective.equals(this.position)){
+			this.objective.x = Common.randomWithRange(0, board.getWide());
+			this.objective.y = Common.randomWithRange(0, board.getHeight());
+		}
+		return headToPoint(objective);
 	}
 	
 	public Creatures whoIsThere(Point p){

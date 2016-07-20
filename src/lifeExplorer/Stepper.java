@@ -33,7 +33,7 @@ public class Stepper extends Thread{
 				}
 				//If one has accumulated enough rep power, save it to the add list
 				if(oa.timeToReplicate == true){
-					Point newSpawn = b.canBeSpawnedAround(new Point(oa.nx, oa.ny));
+					Point newSpawn = b.canBeSpawnedAround(new Point(i.position.x, i.position.y));
 					if( newSpawn != null){
 						i.replicationAcum = 0.0;
 						//Copy individual
