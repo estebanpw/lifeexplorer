@@ -126,6 +126,20 @@ public class Board {
 		return maxP;
 	}
 	
+	public Point getMinTemPos(){
+		Point minP = new Point(0,0);
+		double min = board[0][0].getTemperature();
+		for(int i=0;i<wide;i++){
+			for(int j=0;j<height;j++){
+				if(min > board[i][j].getTemperature()){ 
+					min = board[i][j].getTemperature();
+					minP.setLocation(i, j);
+				}
+			}
+		}
+		return minP;
+	}
+	
 	public double getMinTemp(){
 		double min = board[0][0].getTemperature();
 		for(int i=0;i<wide;i++){

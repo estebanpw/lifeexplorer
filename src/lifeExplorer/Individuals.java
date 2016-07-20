@@ -124,6 +124,14 @@ public abstract class Individuals {
 		return headToPoint(target);
 	}
 	
+	public Point headToCold(int mhDistance){
+		Point target = board.getMinTemPos();
+		if(Common.manhattanDistance(target.x, target.y, this.position.x, this.position.y) < mhDistance){
+			return goAnywhere();
+		}
+		return headToPoint(target);
+	}
+	
 	public Point goAnywhere(){
 		return new Point(position.x+ ((-0.5 + Math.random() >= 0) ? 1 : -1), position.y+((-0.5 + Math.random() >= 0) ? 1 : -1));		
 	}
