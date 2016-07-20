@@ -9,13 +9,11 @@ public class Stepper extends Thread{
 	private Frame f;
 	private List<Individuals> indv;
 	int nCycles = 1000, cCycles;
-	long delay;
 	
-	public Stepper(Board board, Frame frame, List <Individuals> individuals, long ms){
+	public Stepper(Board board, Frame frame, List <Individuals> individuals){
 		b = board;
 		f = frame;
 		indv = individuals;
-		delay = ms;
 		cCycles = 0;
 	}
 	
@@ -52,7 +50,7 @@ public class Stepper extends Thread{
 			f.update();
 			cCycles++;
 			try {
-				Thread.sleep(delay);
+				Thread.sleep(f.getMSDelay());
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

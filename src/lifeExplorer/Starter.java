@@ -57,7 +57,7 @@ public class Starter {
 		
 		f.start(b, pixelsPerCell);
 		
-		Stepper stp = new Stepper(b, f, i, 100);
+		Stepper stp = new Stepper(b, f, i);
 		stp.run();
 		
 	}
