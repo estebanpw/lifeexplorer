@@ -86,6 +86,8 @@ public class Frame {
 	private PaintPanel panelHolder;
 	private JPanel North, South, East;
 	private JLabel temp, tempDisplay, cycleLabel;
+	
+	//For graphics display
 	private int cellSize;
 	
     public void create() {
@@ -101,7 +103,7 @@ public class Frame {
     	tempDisplay = new JLabel("No world created yet.");
     	cycleLabel = new JLabel("Current year: 0");
        
-        South.setLayout(new FlowLayout());
+        South.setLayout(new GridLayout(3,3));
         South.add(temp);
         South.add(tempDisplay);
         East.add(cycleLabel);
