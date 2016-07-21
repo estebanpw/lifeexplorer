@@ -28,8 +28,7 @@ public class Starter {
 		
 		
 		int x = 80, y = 80;
-		int npcs1 = 20;
-		int npcs2 = 10;
+		int npcs1 = 20, npcs2 = 1, npcs3 = 5;
 		int clusterSize = 20;
 		int clusters = 4;
 		int pixelsPerCell = 10;
@@ -41,18 +40,20 @@ public class Starter {
 		List<Individuals> i = new LinkedList<Individuals>();
 		
 		for(int k=0;k<npcs1;k++){
-			Virus v = new Virus(100, 200, new Point(x-1-k, y-1-k), 0.5,
+			Virus v = new Virus(100, 200, new Point(x-1-k, y-1-k), 0.0, 4.0,
 					new EnvironmentSettings(220,250,1000,1200,10000), b);
 			i.add(v);
 		}
 		for(int k=0;k<npcs2;k++){
-			Cell c = new Cell(100, 200, new Point(1+k, 1+k),
+			Cell c = new Cell(100, 200, new Point(1+k, 1+k), 20.0,
 					new EnvironmentSettings(220,250,1000,1200,10000), b);
 			i.add(c);
 		}
+		for(int k=0;k<npcs3;k++){
+			Rabbit r = new Rabbit(100, 200, new Point(x/2+k,y/2+k), 0.0, 5.0, new EnvironmentSettings(220,250,1000,1200,10000), b);
+			i.add(r);
+		}
 		
-		Rabbit r = new Rabbit(100, 200, new Point(30,30), 0.5, new EnvironmentSettings(220,250,1000,1200,10000), b);
-		i.add(r);
 		
 		f.start(b, pixelsPerCell);
 		
