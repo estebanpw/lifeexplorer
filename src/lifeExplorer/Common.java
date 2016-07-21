@@ -72,6 +72,7 @@ public class Common {
 	}
 
 	public static Color tempColorEquivalence(double t, double max_t, double min_t){
+		if((float)(t/max_t) > 1) System.out.println("MAX_T: "+max_t +" and division "+(t/max_t));
 		if(t > 0){
 			//Hot
 			//if(t/max_t < 0.00001) return Common.getBgColor();
@@ -130,7 +131,7 @@ public class Common {
 	
 	public static String event2message(Event e){
 		if(e.equals(Event.EARTHQUAKE)) return "An earthquake makes the ground CRUMBLE";
-		if(e.equals(Event.METEOR)) return "A METEOR HAS LANDED DESTROYING AND CONSUMING EVERYTHING!!";
+		if(e.equals(Event.METEOR)) return "<html>A METEOR HAS LANDED DESTROYING<br> AND CONSUMING EVERYTHING!!";
 		if(e.equals(Event.HEATWAVE)) return "Damn son it is getting hot in here huh";
 		return "Nothing but a Gthang";
 	}

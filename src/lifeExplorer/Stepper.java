@@ -27,11 +27,7 @@ public class Stepper extends Thread{
 		while(cCycles < nCycles){
 			//Check if an event happened
 			event = r.didSomethingHappen();
-			//Something happened
-			if(!event.equals(Event.NOTHING)){
-				f.setInfoLabel(Common.event2message(event), cCycles);
-				if(event.equals(Event.EARTHQUAKE)) b.insertEventOnTempMap(r.generateMeteorite(), Common.randomWithRange(0, b.getWide()), Common.randomWithRange(0, b.getHeight()));
-			}
+			this.handleEvent(event);
 			
 			//Clear individuals to add due to replication
 			indiToAdd.clear();
@@ -69,5 +65,14 @@ public class Stepper extends Thread{
 				e.printStackTrace();
 			}
 		}
+	}
+	private void handleEvent(Event event){
+		//Something happened
+		if(!event.equals(Event.NOTHING)){
+			f.setInfoLabel(Common.event2message(event), cCycles);
+			if(event.equals(Event.METEOR)) b.insertEventOnTempMap(r.generateMeteorite(b.getMaxTemp()), Common.randomWithRange(0, b.getWide()), Common.randomWithRange(0, b.getHeight()));
+			b.recalculateTemps();
+		}
+		
 	}
 }

@@ -25,7 +25,7 @@ public class Randomizer {
 		return Event.NOTHING;
 	}
 	
-	public double[][] generateMeteorite(){
-		return GaussianKernel.kernel2scale(5, 1, 2, 1);
+	public double[][] generateMeteorite(double maxTemp){
+		return GaussianKernel.kernel2scale(Common.randomWithRange(5, 15), (int)(2*maxTemp), 2, 1);
 	}
 }

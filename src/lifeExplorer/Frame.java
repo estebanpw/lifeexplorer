@@ -113,6 +113,7 @@ public class Frame {
     	delayLabel = new JLabel("Adjust the delay between iterations in milliseconds");
     	infoLabel = new JLabel("Everything seems to be quite...");
     	
+    	
     	//Delay slider
     	msDelay = new JSlider(JSlider.HORIZONTAL, 5, 1000, 100);
     	msDelay.setMajorTickSpacing(200);

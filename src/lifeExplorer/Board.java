@@ -186,10 +186,10 @@ public class Board {
 	 * @y:		top-left y-coordinate ...
 	 */
 	public void insertEventOnTempMap(double [][] tmp, int x, int y){
-		if(x >= 0 && y >= 0){
+		if(x >= 0 && y >= 0 && x < this.getWide() && y < this.getHeight()){
 			int k1=0,k2=0;
-			for(int i=x; i<Math.min(tmp.length,wide); i++){
-				for(int j=y; j<Math.min(tmp.length,height);j++){
+			for(int i=x; i<Math.min(tmp.length+x,wide); i++){
+				for(int j=y; j<Math.min(tmp.length+y,height);j++){
 					board[i][j].setTemperature(tmp[k1][k2]);
 					k2++;
 				}
