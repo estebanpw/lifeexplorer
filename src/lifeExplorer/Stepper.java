@@ -23,8 +23,13 @@ public class Stepper extends Thread{
 	public void run(){
 		OrganismActions oa;
 		List<Individuals> indiToAdd = new LinkedList<Individuals>();
+		Event event;
 		while(cCycles < nCycles){
-			r.didSomethingHappen();
+			//Check if an event happened
+			event = r.didSomethingHappen();
+			
+			
+			//Clear individuals to add due to replication
 			indiToAdd.clear();
 			//Update each individual
 			for(Individuals i : indv){

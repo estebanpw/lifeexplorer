@@ -164,12 +164,37 @@ public class Board {
 		return minP;
 	}
 	
-	
+	/*	Generates a kernel (two-dim array) of doubles following a gaussian distribution and copies it to the temp map of the board
+	 * 
+	 *  @theta:		Theta value for the distribution
+	 * 	@seeds:		Number of distributions to spawn
+	 * 	@clusterSize	Cells from the center of the spawned distribution to the corners
+	 */
 	private void generateTemperature(double theta, int seeds, int clusterSize){
 		double[][] tempMap = GaussianKernel.heatmap(wide, height, theta, seeds, clusterSize);
 		for(int i=0; i<wide; i++){
 			for(int j=0; j<height;j++){
 				board[i][j].setTemperature(tempMap[i][j]);
+			}
+		}
+	}
+	
+	/*	Copies a two dimensional array of double values into the temp double map 
+	 * 
+	 * @tmp: 	two dimensional array of doubles representing temperatures
+	 * @x:		top-left x-coordinate starting point to copy the temp map into the board temp map
+	 * @y:		top-left y-coordinate ...
+	 */
+	public void insertEventOnTempMap(double [][] tmp, int x, int y){
+		if(x >= 0 && y >= 0){
+			int k1=0,k2=0;
+			for(int i=x; i<Math.min(tmp.length,wide); i++){
+				for(int j=y; j<Math.min(tmp.length,height);j++){
+					board[i][j].setTemperature(tmp[k1][k2]);
+					k2++;
+				}
+				k1++;
+				k2=0;
 			}
 		}
 	}

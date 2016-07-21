@@ -1,13 +1,5 @@
 package lifeExplorer;
 
-import java.applet.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.net.*;
-import java.util.*;
-import java.io.*;
-import java.lang.Math.*;
-import java.awt.Color.*;
 
 /**
  * Contains the functionality to generate a gaussian filter kernel and apply it
