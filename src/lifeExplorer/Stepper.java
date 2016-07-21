@@ -27,7 +27,10 @@ public class Stepper extends Thread{
 		while(cCycles < nCycles){
 			//Check if an event happened
 			event = r.didSomethingHappen();
-			
+			//Something happened
+			if(!event.equals(Event.NOTHING)){
+				f.setInfoLabel(Common.event2message(event), cCycles);
+			}
 			
 			//Clear individuals to add due to replication
 			indiToAdd.clear();

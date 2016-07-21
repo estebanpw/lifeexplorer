@@ -88,7 +88,7 @@ public class Frame {
 	private JPanel Center, East;
 	//Panels to hold subcomponents
 	private JPanel DELAY_THING;
-	private JLabel temp, tempDisplay, cycleLabel, delayLabel;
+	private JLabel temp, tempDisplay, cycleLabel, delayLabel, infoLabel;
 	private JSlider msDelay;
 	
 	//For graphic size computation
@@ -111,6 +111,7 @@ public class Frame {
     	temp = new JLabel("Actual temperature (K): ");
     	cycleLabel = new JLabel("Current year: 0");
     	delayLabel = new JLabel("Adjust the delay between iterations in milliseconds");
+    	infoLabel = new JLabel("Everything seems to be quite...");
     	
     	//Delay slider
     	msDelay = new JSlider(JSlider.HORIZONTAL, 5, 1000, 100);
@@ -132,6 +133,7 @@ public class Frame {
         East.add(temp);
         East.add(cycleLabel);
         East.add(DELAY_THING);
+        East.add(infoLabel);
         
         //Create panel that paints
         panelHolder = new PaintPanel(board.getWide(),board.getHeight(), this.cellSize);
@@ -202,6 +204,10 @@ public class Frame {
     		throw new RuntimeException("Board dimensiones must be equal and multiples of the cell size");
     	}
         create();
+    }
+    
+    public void setInfoLabel(String s, int year){
+    	infoLabel.setText(s+" @Year "+year);
     }
     
     public int getMSDelay(){

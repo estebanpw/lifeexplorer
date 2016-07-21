@@ -128,4 +128,11 @@ public class Common {
 		return Creatures.ZERO;
 	}
 	
+	public static String event2message(Event e){
+		if(e.equals(Event.EARTHQUAKE)) return "An earthquake makes the ground CRUMBLE";
+		if(e.equals(Event.METEOR)) return "A METEOR HAS LANDED DESTROYING AND CONSUMING EVERYTHING!!";
+		if(e.equals(Event.HEATWAVE)) return "Damn son it is getting hot in here huh";
+		return "Nothing but a Gthang";
+	}
+	
 }
