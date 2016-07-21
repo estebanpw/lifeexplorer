@@ -80,14 +80,18 @@ public class Frame {
 			p[x][y] = Common.idToPolygon(id, cellSize, cellSize);
 		}
 	};
-	
+	//For display
 	private Board board;
 	private JFrame frame = new JFrame("Life explorer");
 	private PaintPanel panelHolder;
-	private JPanel North, South, East;
-	private JLabel temp, tempDisplay, cycleLabel;
+	//Panels to hold subpanels and components
+	private JPanel Center, East;
+	//Panels to hold subcomponents
+	private JPanel DELAY_THING;
+	private JLabel temp, tempDisplay, cycleLabel, delayLabel;
+	private JSlider msDelay;
 	
-	//For graphics display
+	//For graphic size computation
 	private int cellSize;
 	
     public void create() {
@@ -95,30 +99,45 @@ public class Frame {
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setLayout(new BorderLayout());
     	
-    	North = new JPanel();
+    	//Real panels
+    	Center = new JPanel();
     	East = new JPanel();
-    	South = new JPanel();
     	
-    	temp = new JLabel("Actual temperature (celsius): ");
-    	tempDisplay = new JLabel("No world created yet.");
+    	//Subcomponents panels
+    	DELAY_THING = new JPanel();
+    	DELAY_THING.setLayout(new BorderLayout());
+    	
+    	//Labels
+    	temp = new JLabel("Actual temperature (K): ");
     	cycleLabel = new JLabel("Current year: 0");
-       
-        South.setLayout(new GridLayout(3,3));
-        South.add(temp);
-        South.add(tempDisplay);
+    	delayLabel = new JLabel("Adjust the delay between iterations in milliseconds");
+    	
+    	//Delay slider
+    	msDelay = new JSlider(JSlider.HORIZONTAL, 5, 1000, 100);
+    	msDelay.setMajorTickSpacing(200);
+    	msDelay.setMinorTickSpacing(50);
+    	msDelay.setPaintTicks(true);
+    	msDelay.setPaintLabels(true);
+    	msDelay.setBorder(BorderFactory.createEmptyBorder(0,0,10,0));
+    	
+        
+        
+        //Subcomponents addition to subpanels
+        DELAY_THING.add(delayLabel, BorderLayout.NORTH);
+        DELAY_THING.add(msDelay, BorderLayout.SOUTH);
+        
+        //Add subpanels to panels
+        East.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        East.setPreferredSize(new Dimension(400,frame.getHeight()));
+        East.add(temp);
         East.add(cycleLabel);
-        //frame.setLayout(gl);
-    	loadImages();
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
-    
-    private void loadImages(){
-    	panelHolder = new PaintPanel(board.getWide(),board.getHeight(), this.cellSize);
+        East.add(DELAY_THING);
+        
+        //Create panel that paints
+        panelHolder = new PaintPanel(board.getWide(),board.getHeight(), this.cellSize);
     	panelHolder.setPreferredSize(new Dimension(this.board.getWide()*cellSize, this.board.getHeight()*cellSize));
     	
-    	
+    	//Set everything to white for the first time
     	for(int i=0; i<board.getWide(); i++){
     		for(int j=0; j<board.getHeight(); j++){
     			panelHolder.colorBackground(i, j, Color.white);
@@ -126,12 +145,14 @@ public class Frame {
     	}
     	panelHolder.repaint();
     	
-    	
-    	North.add(panelHolder);
-    	frame.add(North, BorderLayout.NORTH);
-    	frame.add(South, BorderLayout.SOUTH);
+    	//Finally add panels to frame
+    	Center.add(panelHolder);
+    	frame.add(Center, BorderLayout.CENTER);
     	frame.add(East, BorderLayout.EAST);
     	
+        //Display the window.
+        frame.pack();
+        frame.setVisible(true);
     }
     
     
@@ -181,5 +202,9 @@ public class Frame {
     		throw new RuntimeException("Board dimensiones must be equal and multiples of the cell size");
     	}
         create();
+    }
+    
+    public int getMSDelay(){
+    	return msDelay.getValue();
     }
 }

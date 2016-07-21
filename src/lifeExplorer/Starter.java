@@ -32,9 +32,12 @@ public class Starter {
 		int clusterSize = 20;
 		int clusters = 4;
 		int pixelsPerCell = 10;
+		double averageEventsPerMaxCycles = 10;
+		int maxCycles = 500;
 		
 		Board b = new Board(x, y, Math.sqrt(clusterSize), clusterSize, clusters);
 		Frame f = new Frame();
+		Randomizer revent = new Randomizer(averageEventsPerMaxCycles, maxCycles);
 		
 		
 		List<Individuals> i = new LinkedList<Individuals>();
@@ -57,7 +60,7 @@ public class Starter {
 		
 		f.start(b, pixelsPerCell);
 		
-		Stepper stp = new Stepper(b, f, i, 100);
+		Stepper stp = new Stepper(b, f, i, maxCycles, revent);
 		stp.run();
 		
 	}
