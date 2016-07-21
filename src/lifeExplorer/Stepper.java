@@ -21,12 +21,12 @@ public class Stepper extends Thread{
 		while(nCycles > 0){
 			for(Individuals i : indv){
 				oa = i.lifeStep();
-				if(b.update(i.systemID, oa.nx, oa.ny, i.position.x, i.position.y) == 1){
+				if(b.update(Common.creatures2int(i.getType()), oa.nx, oa.ny, i.position.x, i.position.y) == 1){
 					i.position.x = oa.nx;
 					i.position.y = oa.ny;
-					f.update();
 				}
 			}
+			f.update();
 			nCycles--;
 			try {
 				Thread.sleep(delay);

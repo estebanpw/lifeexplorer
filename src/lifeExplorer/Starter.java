@@ -27,11 +27,12 @@ public class Starter {
 		//Common.printTempMap(GaussianKernel.heatmap(50, 50, 1.5, 6, 30));
 		
 		
-		int x = 60, y = 60;
+		int x = 80, y = 80;
 		int npcs1 = 20;
 		int npcs2 = 10;
 		int clusterSize = 20;
 		int clusters = 4;
+		int pixelsPerCell = 10;
 		
 		Board b = new Board(x, y, Math.sqrt(clusterSize), clusterSize, clusters);
 		Frame f = new Frame();
@@ -40,23 +41,23 @@ public class Starter {
 		List<Individuals> i = new LinkedList<Individuals>();
 		
 		for(int k=0;k<npcs1;k++){
-			Virus v = new Virus(1, 100, 200, new Point(x-1-k, y-1-k), 0.5,
+			Virus v = new Virus(100, 200, new Point(x-1-k, y-1-k), 0.5,
 					new EnvironmentSettings(220,250,1000,1200,10000), b);
 			i.add(v);
 		}
 		for(int k=0;k<npcs2;k++){
-			Cell c = new Cell(2, 100, 200, new Point(1+k, 1+k),
+			Cell c = new Cell(100, 200, new Point(1+k, 1+k),
 					new EnvironmentSettings(220,250,1000,1200,10000), b);
 			i.add(c);
 		}
 		
+		Rabbit r = new Rabbit(100, 200, new Point(30,30), 0.5, new EnvironmentSettings(220,250,1000,1200,10000), b);
+		i.add(r);
 		
+		f.start(b, pixelsPerCell);
 		
-		
-		f.start(b);
-		
-		Stepper stp = new Stepper(b, f, i, 200);
-		stp.start();
+		Stepper stp = new Stepper(b, f, i, 100);
+		stp.run();
 		
 	}
 
