@@ -5,8 +5,8 @@ import java.awt.Point;
 public class Board {
 	private Chunk[][] board;
 	private int wide, height;
-	private double maxTemp;
-	private Point maxTempPos;
+	private double maxTemp, minTemp;
+	private Point maxTempPos, minTempPos;
 	
 	
 	public Board(int wide, int height, double tempTheta, int cluTempSize, int clusters){
@@ -17,6 +17,8 @@ public class Board {
 		generateTemperature(tempTheta, clusters, cluTempSize);
 		maxTemp = calcMaxTemp();
 		maxTempPos = calcMaxTemPos();
+		minTemp = calcMaxTemp();
+		minTempPos = calcMaxTemPos();
 	}
 	
 	private void generateChunkBoard(){
@@ -44,6 +46,13 @@ public class Board {
 			return 1;
 		}
 		return 0;
+	}
+	
+	public void recalculateTemps(){
+		maxTemp = calcMaxTemp();
+		maxTempPos = calcMaxTemPos();
+		minTemp = calcMaxTemp();
+		minTempPos = calcMaxTemPos();
 	}
 	
 	public int getWide(){
@@ -88,6 +97,31 @@ public class Board {
 		return maxP;
 	}
 	
+	private double calcMinTemp(){
+		double min = board[0][0].getTemperature();
+		for(int i=0;i<wide;i++){
+			for(int j=0;j<height;j++){
+				if(min < board[i][j].getTemperature()) min = board[i][j].getTemperature();
+			}
+		}
+		return min;
+	}
+	
+
+	private Point calcMinTemPos(){
+		Point minP = new Point(0,0);
+		double min = board[0][0].getTemperature();
+		for(int i=0;i<wide;i++){
+			for(int j=0;j<height;j++){
+				if(min < board[i][j].getTemperature()){ 
+					min = board[i][j].getTemperature();
+					minP.setLocation(i, j);
+				}
+			}
+		}
+		return minP;
+	}
+	
 	public double getMinTemp(){
 		double min = board[0][0].getTemperature();
 		for(int i=0;i<wide;i++){
@@ -106,6 +140,7 @@ public class Board {
 			}
 		}
 	}
+	
 
 	public double getMaxTemp() {
 		return maxTemp;
