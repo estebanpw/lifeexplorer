@@ -5,6 +5,8 @@ import java.awt.Point;
 public class Board {
 	private Chunk[][] board;
 	private int wide, height;
+	private double maxTemp;
+	private Point maxTempPos;
 	
 	
 	public Board(int wide, int height, double tempTheta, int cluTempSize, int clusters){
@@ -13,6 +15,8 @@ public class Board {
 		board = new Chunk[wide][height];
 		generateChunkBoard();
 		generateTemperature(tempTheta, clusters, cluTempSize);
+		maxTemp = calcMaxTemp();
+		maxTempPos = calcMaxTemPos();
 	}
 	
 	private void generateChunkBoard(){
@@ -59,7 +63,7 @@ public class Board {
 		return 0;
 	}
 	
-	public double getMaxTemp(){
+	private double calcMaxTemp(){
 		double max = board[0][0].getTemperature();
 		for(int i=0;i<wide;i++){
 			for(int j=0;j<height;j++){
@@ -70,7 +74,7 @@ public class Board {
 	}
 	
 
-	public Point getMaxTemPos(){
+	private Point calcMaxTemPos(){
 		Point maxP = new Point(0,0);
 		double max = board[0][0].getTemperature();
 		for(int i=0;i<wide;i++){
@@ -102,4 +106,12 @@ public class Board {
 			}
 		}
 	}
+
+	public double getMaxTemp() {
+		return maxTemp;
+	}
+
+	public Point getMaxTempPos() {
+		return maxTempPos;
+	} 
 }

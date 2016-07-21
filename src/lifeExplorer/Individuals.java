@@ -109,7 +109,7 @@ public abstract class Individuals {
 	}
 	
 	public Point headToHot(){
-		Point target = board.getMaxTemPos();
+		Point target = board.getMaxTempPos();
 		return headToPoint(target);
 	}
 	
