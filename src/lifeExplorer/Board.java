@@ -143,7 +143,7 @@ public class Board {
 		double min = board[0][0].getTemperature();
 		for(int i=0;i<wide;i++){
 			for(int j=0;j<height;j++){
-				if(min < board[i][j].getTemperature()) min = board[i][j].getTemperature();
+				if(min > board[i][j].getTemperature()) min = board[i][j].getTemperature();
 			}
 		}
 		return min;
@@ -155,7 +155,7 @@ public class Board {
 		double min = board[0][0].getTemperature();
 		for(int i=0;i<wide;i++){
 			for(int j=0;j<height;j++){
-				if(min < board[i][j].getTemperature()){ 
+				if(min > board[i][j].getTemperature()){ 
 					min = board[i][j].getTemperature();
 					minP.setLocation(i, j);
 				}
