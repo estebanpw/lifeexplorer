@@ -8,19 +8,23 @@ public class Stepper extends Thread{
 	private Board b;
 	private Frame f;
 	private List<Individuals> indv;
-	int nCycles = 1000, cCycles;
+	private Randomizer r;
+	private int nCycles, cCycles;
 	
-	public Stepper(Board board, Frame frame, List <Individuals> individuals){
+	public Stepper(Board board, Frame frame, List <Individuals> individuals, int maxCycles, Randomizer r){
 		b = board;
 		f = frame;
 		indv = individuals;
+		nCycles = maxCycles;
 		cCycles = 0;
+		this.r = r;
 	}
 	
 	public void run(){
 		OrganismActions oa;
 		List<Individuals> indiToAdd = new LinkedList<Individuals>();
 		while(cCycles < nCycles){
+			r.didSomethingHappen();
 			indiToAdd.clear();
 			//Update each individual
 			for(Individuals i : indv){
