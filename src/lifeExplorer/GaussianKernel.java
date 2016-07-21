@@ -85,6 +85,8 @@ public class GaussianKernel {
 		return kernel;
 	}
 	
+	
+	
 	public static double[][] heatmap(int x, int y, double theta, int seeds, int clusterSize){
 		double [][] map = new double[x][y];
 		double [][] temp = new double[clusterSize][clusterSize];

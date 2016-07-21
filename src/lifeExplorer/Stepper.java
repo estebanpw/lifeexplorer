@@ -30,6 +30,7 @@ public class Stepper extends Thread{
 			//Something happened
 			if(!event.equals(Event.NOTHING)){
 				f.setInfoLabel(Common.event2message(event), cCycles);
+				if(event.equals(Event.EARTHQUAKE)) b.insertEventOnTempMap(r.generateMeteorite(), Common.randomWithRange(0, b.getWide()), Common.randomWithRange(0, b.getHeight()));
 			}
 			
 			//Clear individuals to add due to replication

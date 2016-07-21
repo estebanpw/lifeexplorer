@@ -24,4 +24,8 @@ public class Randomizer {
 		}
 		return Event.NOTHING;
 	}
+	
+	public double[][] generateMeteorite(){
+		return GaussianKernel.kernel2scale(5, 1, 2, 1);
+	}
 }
