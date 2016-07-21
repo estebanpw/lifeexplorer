@@ -84,8 +84,10 @@ public class Frame {
 	private Board board;
 	private JFrame frame = new JFrame("Life explorer");
 	private PaintPanel panelHolder;
-	private JPanel North, South;
-	private JLabel temp, tempDisplay;
+	private JPanel North, South, East;
+	private JLabel temp, tempDisplay, cycleLabel;
+	
+	//For graphics display
 	private int cellSize;
 	
     public void create() {
@@ -94,13 +96,17 @@ public class Frame {
     	frame.setLayout(new BorderLayout());
     	
     	North = new JPanel();
+    	East = new JPanel();
     	South = new JPanel();
+    	
     	temp = new JLabel("Actual temperature (celsius): ");
     	tempDisplay = new JLabel("No world created yet.");
+    	cycleLabel = new JLabel("Current year: 0");
        
-        South.setLayout(new FlowLayout());
+        South.setLayout(new GridLayout(3,3));
         South.add(temp);
         South.add(tempDisplay);
+        East.add(cycleLabel);
         //frame.setLayout(gl);
     	loadImages();
         //Display the window.
@@ -124,6 +130,7 @@ public class Frame {
     	North.add(panelHolder);
     	frame.add(North, BorderLayout.NORTH);
     	frame.add(South, BorderLayout.SOUTH);
+    	frame.add(East, BorderLayout.EAST);
     	
     }
     
@@ -132,6 +139,10 @@ public class Frame {
     	tempDisplay.setText(Integer.toString(t));
     }
     
+    
+    public void setCycle(int c){
+    	this.cycleLabel.setText("Current year: "+c);
+    }
     
     public void update(){
     	
@@ -165,7 +176,6 @@ public class Frame {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
     	cellSize = sizeOfCell;
-    	
     	board = b;
     	if(board.getHeight() != board.getWide() || board.getHeight() % sizeOfCell != 0){
     		throw new RuntimeException("Board dimensiones must be equal and multiples of the cell size");

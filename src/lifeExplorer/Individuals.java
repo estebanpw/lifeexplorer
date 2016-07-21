@@ -13,12 +13,13 @@ public abstract class Individuals {
 	protected Creatures creature;
 	protected int lifeCycles, maxCycles;
 	protected Point position;
-	protected double replicationPace;
+	protected double replicationPace, replicationAcum, repMax;
 	protected EnvironmentSettings eS;
 	protected OrganismActions oa; 
 	protected Point objective;
 	
-	public Individuals(int lCycles, int mCycles, Point pos, Creatures crea, double repPace, EnvironmentSettings envS, Board b){
+	
+	public Individuals(int lCycles, int mCycles, Point pos, Creatures crea, double repPace, double repMax, EnvironmentSettings envS, Board b){
 		lifeCycles = lCycles;
 		maxCycles = mCycles;
 		position = pos;
@@ -26,6 +27,8 @@ public abstract class Individuals {
 		replicationPace = repPace;
 		eS = envS;
 		board = b;
+		replicationAcum = 0.0;
+		this.repMax = repMax;
 		oa = new OrganismActions(0,0, Common.backgroundColorIdEquivalence(creature.ordinal()));
 	}
 	public List<Point> isTouching(){
@@ -101,21 +104,41 @@ public abstract class Individuals {
 				return new Point(position.x - reverse.x, position.y - reverse.y); 
 			}
 		}
-		return goAnywhere();
+		//In case there are no enemies go somewhere particularly
+		if(this.objective == null || this.objective.equals(this.position)){
+			this.objective.x = Common.randomWithRange(0, board.getWide());
+			this.objective.y = Common.randomWithRange(0, board.getHeight());
+		}
+		return headToPoint(objective);
 	}
 	
 	public Creatures whoIsThere(Point p){
 		return Common.int2creatures(board.getCell(p.x, p.y));
 	}
 	
-	public Point headToHot(){
+	public Point headToHot(int mhDistance){
 		Point target = board.getMaxTempPos();
+		if(Common.manhattanDistance(target.x, target.y, this.position.x, this.position.y) < mhDistance){
+			return goAnywhere();
+		}
+		return headToPoint(target);
+	}
+	
+	public Point headToCold(int mhDistance){
+		Point target = board.getMinTempPos();
+		if(Common.manhattanDistance(target.x, target.y, this.position.x, this.position.y) < mhDistance){
+			return goAnywhere();
+		}
 		return headToPoint(target);
 	}
 	
 	public Point goAnywhere(){
 		return new Point(position.x+ ((-0.5 + Math.random() >= 0) ? 1 : -1), position.y+((-0.5 + Math.random() >= 0) ? 1 : -1));		
 	}
+	
+	public abstract Individuals copyObject();
+	
+	public abstract boolean addReplicationStep();
 	
 	public abstract OrganismActions lifeStep();
 	

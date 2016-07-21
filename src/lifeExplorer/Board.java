@@ -1,6 +1,9 @@
 package lifeExplorer;
 
 import java.awt.Point;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Board {
 	private Chunk[][] board;
@@ -17,8 +20,8 @@ public class Board {
 		generateTemperature(tempTheta, clusters, cluTempSize);
 		maxTemp = calcMaxTemp();
 		maxTempPos = calcMaxTemPos();
-		minTemp = calcMaxTemp();
-		minTempPos = calcMaxTemPos();
+		minTemp = calcMinTemp();
+		minTempPos = calcMinTemPos();
 	}
 	
 	private void generateChunkBoard(){
@@ -51,8 +54,8 @@ public class Board {
 	public void recalculateTemps(){
 		maxTemp = calcMaxTemp();
 		maxTempPos = calcMaxTemPos();
-		minTemp = calcMaxTemp();
-		minTempPos = calcMaxTemPos();
+		minTemp = calcMinTemp();
+		minTempPos = calcMinTemPos();
 	}
 	
 	public int getWide(){
@@ -82,6 +85,45 @@ public class Board {
 		return max;
 	}
 	
+	public Point canBeSpawnedAround(Point position){
+		//Check if a new unit can be spawned around
+		/*    1 2 3
+		 *    4 x 5
+		 *    6 7 8
+		 */
+		List <Point> possiblePoints = new LinkedList<Point>();
+		
+		if(position.x -1 >= 0 && position.y-1 >= 0){ // Position 1
+			if(this.getCell(position.x-1, position.y-1) == 0) possiblePoints.add(new Point(position.x-1, position.y-1));
+		}
+		if(position.x -1 >= 0){ //Position 2 
+			if(this.getCell(position.x-1, position.y) == 0) possiblePoints.add(new Point(position.x-1, position.y));
+		}
+		if(position.x -1 >= 0 && position.y +1 < this.getWide()){ //Position 3
+			if(this.getCell(position.x -1, position.y +1) == 0) possiblePoints.add(new Point(position.x-1, position.y+1));
+		}
+		if(position.y-1 >= 0){ //Position 4
+			if(this.getCell(position.x, position.y-1) == 0) possiblePoints.add(new Point(position.x, position.y-1));
+		}
+		if(position.y +1 < this.getWide()){ //Position 5
+			if(this.getCell(position.x, position.y+1) == 0) possiblePoints.add(new Point(position.x,position.y+1));
+		}
+		if(position.x +1 < this.getHeight() && position.y -1 >= 0){ //Position 6
+			if(this.getCell(position.x+1, position.y-1) == 0) possiblePoints.add(new Point(position.x+1, position.y-1));
+		}
+		if(position.x +1 < this.getHeight()){ //Position 7
+			if(this.getCell(position.x+1, position.y) == 0) possiblePoints.add(new Point(position.x+1, position.y));
+		}
+		if(position.x+1 < this.getHeight() && position.y+1 < this.getWide()){ //Position 8
+			if(this.getCell(position.x+1, position.y+1) == 0) possiblePoints.add(new Point(position.x+1, position.y+1));
+		}
+		if(possiblePoints.size()>0){
+			//Shuffle so we get a random position to spawn 
+			Collections.shuffle(possiblePoints);
+			return possiblePoints.get(0);
+		}
+		return null;
+	}
 
 	private Point calcMaxTemPos(){
 		Point maxP = new Point(0,0);
@@ -122,15 +164,6 @@ public class Board {
 		return minP;
 	}
 	
-	public double getMinTemp(){
-		double min = board[0][0].getTemperature();
-		for(int i=0;i<wide;i++){
-			for(int j=0;j<height;j++){
-				if(min > board[i][j].getTemperature()) min = board[i][j].getTemperature();
-			}
-		}
-		return min;
-	}
 	
 	private void generateTemperature(double theta, int seeds, int clusterSize){
 		double[][] tempMap = GaussianKernel.heatmap(wide, height, theta, seeds, clusterSize);
@@ -148,5 +181,13 @@ public class Board {
 
 	public Point getMaxTempPos() {
 		return maxTempPos;
+	} 
+	
+	public double getMinTemp() {
+		return minTemp;
+	}
+
+	public Point getMinTempPos() {
+		return minTempPos;
 	} 
 }
