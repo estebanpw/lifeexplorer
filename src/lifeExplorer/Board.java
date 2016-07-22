@@ -190,7 +190,7 @@ public class Board {
 			int k1=0,k2=0;
 			for(int i=x; i<Math.min(tmp.length+x,wide); i++){
 				for(int j=y; j<Math.min(tmp.length+y,height);j++){
-					board[i][j].setTemperature(tmp[k1][k2]);
+					board[i][j].setTemperature(board[i][j].getTemperature()+tmp[k1][k2]);
 					k2++;
 				}
 				k1++;
