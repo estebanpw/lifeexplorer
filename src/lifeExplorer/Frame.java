@@ -88,8 +88,11 @@ public class Frame {
 	private JPanel Center, East;
 	//Panels to hold subcomponents
 	private JPanel DELAY_THING;
-	private JLabel temp, tempDisplay, cycleLabel, delayLabel, infoLabel;
+	//Components
+	private JLabel temp, tempDisplay, cycleLabel, delayLabel;
+	private JTextArea infoLabel;
 	private JSlider msDelay;
+	private JScrollPane sp;
 	
 	//For graphic size computation
 	private int cellSize;
@@ -107,12 +110,20 @@ public class Frame {
     	DELAY_THING = new JPanel();
     	DELAY_THING.setLayout(new BorderLayout());
     	
-    	//Labels
+    	//Labels and text
     	temp = new JLabel("Actual temperature (K): ");
     	cycleLabel = new JLabel("Current year: 0");
     	delayLabel = new JLabel("Adjust the delay between iterations in milliseconds");
-    	infoLabel = new JLabel("Everything seems to be quite...");
+    	infoLabel = new JTextArea(5, 30);
+    	infoLabel.setText("Everything seems so quite...it's disturbing...");
+    	infoLabel.setLineWrap(true);
+    	infoLabel.setEditable(false);
+    	infoLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     	
+    	//Scrollpanes
+    	sp = new JScrollPane(infoLabel);
+    	sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+    	sp.setPreferredSize(new Dimension(400,200));
     	
     	//Delay slider
     	msDelay = new JSlider(JSlider.HORIZONTAL, 5, 1000, 100);
@@ -134,7 +145,7 @@ public class Frame {
         East.add(temp);
         East.add(cycleLabel);
         East.add(DELAY_THING);
-        East.add(infoLabel);
+        East.add(sp);
         
         //Create panel that paints
         panelHolder = new PaintPanel(board.getWide(),board.getHeight(), this.cellSize);
@@ -208,7 +219,7 @@ public class Frame {
     }
     
     public void setInfoLabel(String s, int year){
-    	infoLabel.setText(s+" @Year "+year);
+    	infoLabel.append("\n@Year <"+year+">: "+s);
     }
     
     public int getMSDelay(){
