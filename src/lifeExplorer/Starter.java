@@ -14,7 +14,7 @@ public class Starter {
 				
 		//Configuration variables
 		int x = 80, y = 80;
-		int npcs1 = 20, npcs2 = 0, npcs3 = 0;
+		int npcs1 = 20, npcs2 = 2, npcs3 = 5;
 		int clusterSize = 20;
 		int clusters = 4;
 		int pixelsPerCell = 10;
@@ -31,7 +31,7 @@ public class Starter {
 		List<Individuals> i = new LinkedList<Individuals>();
 		
 		for(int k=0;k<npcs1;k++){
-			Virus v = new Virus(100, 200, new Point(x-1-k, y-1-k), 0.5, 35.0,
+			Virus v = new Virus(100, 200, new Point(x-1-k, y-1-k), 0.2, 35.0,
 					new EnvironmentSettings(220,250,1000,1200,10000), b);
 			i.add(v);
 		}

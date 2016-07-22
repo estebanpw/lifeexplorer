@@ -1,5 +1,5 @@
 package lifeExplorer;
 
 public enum Event {
-	NOTHING, EARTHQUAKE, METEOR, HEATWAVE;
+	NOTHING, EARTHQUAKE, METEOR, HEATWAVE, COLDWAVE;
 }
