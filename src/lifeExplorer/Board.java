@@ -51,6 +51,14 @@ public class Board {
 		return 0;
 	}
 	
+	public int updateTemp(double temperature, int x, int y){
+		if(x >= 0 && y >= 0 && x < wide && y < height){
+			board[x][y].setTemperature(temperature);
+			return 1;
+		}
+		return 0;
+	}
+	
 	public void recalculateTemps(){
 		maxTemp = calcMaxTemp();
 		maxTempPos = calcMaxTemPos();

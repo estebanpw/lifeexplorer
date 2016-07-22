@@ -70,8 +70,8 @@ public class Stepper extends Thread{
 		//Something happened
 		if(!event.equals(Event.NOTHING)){
 			f.setInfoLabel(Common.event2message(event), cCycles);
-			if(event.equals(Event.METEOR)) b.insertEventOnTempMap(r.generateMeteorite(b.getMaxTemp()), Common.randomWithRange(0, b.getWide()), Common.randomWithRange(0, b.getHeight()));
-			b.recalculateTemps();
+			if(event.equals(Event.METEOR)) r.generateMeteorite();
+			if(event.equals(Event.HEATWAVE)) r.generateHeatWave();
 		}
 		
 	}

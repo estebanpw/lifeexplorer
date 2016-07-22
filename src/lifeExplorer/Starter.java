@@ -11,39 +11,27 @@ public class Starter {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-		/*
-		GaussianKernel k;
-		int size = 5;
-		int [][] kernel = GaussianKernel.kernel2integer(size, 10, 1, 1.5);
-		for(int i=0;i<size;i++){
-			for(int j=0;j<size;j++){
-				System.out.print(kernel[i][j]+ "  ");
-			}
-			System.out.println();
-		}
-		*/
-		
-		//Common.printTempMap(GaussianKernel.heatmap(50, 50, 1.5, 6, 30));
-		
-		
+				
+		//Configuration variables
 		int x = 80, y = 80;
-		int npcs1 = 20, npcs2 = 1, npcs3 = 5;
+		int npcs1 = 20, npcs2 = 0, npcs3 = 0;
 		int clusterSize = 20;
 		int clusters = 4;
 		int pixelsPerCell = 10;
-		double averageEventsPerMaxCycles = 50;
+		double averageEventsPerMaxCycles = 10;
 		int maxCycles = 500;
 		
+		//System objects to model the board
 		Board b = new Board(x, y, Math.sqrt(clusterSize), clusterSize, clusters);
 		Frame f = new Frame();
-		Randomizer revent = new Randomizer(averageEventsPerMaxCycles, maxCycles);
+		Randomizer revent = new Randomizer(averageEventsPerMaxCycles, maxCycles, b);
 		
 		
+		//Addition of life
 		List<Individuals> i = new LinkedList<Individuals>();
 		
 		for(int k=0;k<npcs1;k++){
-			Virus v = new Virus(100, 200, new Point(x-1-k, y-1-k), 0.0, 4.0,
+			Virus v = new Virus(100, 200, new Point(x-1-k, y-1-k), 0.5, 35.0,
 					new EnvironmentSettings(220,250,1000,1200,10000), b);
 			i.add(v);
 		}
@@ -57,9 +45,10 @@ public class Starter {
 			i.add(r);
 		}
 		
-		
+		//Initialize frame and board
 		f.start(b, pixelsPerCell);
 		
+		//Start thread to run the system through iterations
 		Stepper stp = new Stepper(b, f, i, maxCycles, revent);
 		stp.run();
 		
