@@ -11,6 +11,11 @@ public class Common {
 	   return (int)(Math.random() * range) + min;
 	}
 	
+	public static double uniRandomWithRange(double min, double max){
+		   double range = (max - min) + 1;     
+		   return (int)(Math.random() * range) + min;
+	}
+	
 	public static int manhattanDistance(int x1, int y1, int x2, int y2){
 		return (Math.abs(x1-x2) + Math.abs(y1-y2));
 	}
@@ -131,8 +136,9 @@ public class Common {
 	
 	public static String event2message(Event e){
 		if(e.equals(Event.EARTHQUAKE)) return "An earthquake makes the ground CRUMBLE";
-		if(e.equals(Event.METEOR)) return "A METEOR HAS LANDED DESTROYING AND CONSUMING EVERYTHING!!";
-		if(e.equals(Event.HEATWAVE)) return "Damn son it is getting hot in here huh";
+		if(e.equals(Event.METEOR)) return "A METEORITE HAS LANDED DESTROYING AND CONSUMING EVERYTHING!!";
+		if(e.equals(Event.HEATWAVE)) return "Damn son it is getting hot in here huh [HEATWAVE]";
+		if(e.equals(Event.COLDWAVE)) return "Everything started to freeze...we were doomed...";
 		return "Nothing but a Gthang";
 	}
 	

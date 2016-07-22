@@ -8,11 +8,12 @@ public class Cell extends Individuals{
 	
 	public Cell(int lCycles, int mCycles, Point pos, double repMax, EnvironmentSettings envS, Board board) {
 		super(lCycles, mCycles, pos, Creatures.CELL, Math.abs(new Random().nextGaussian()), repMax, envS, board);
+		this.objective = new Point(Common.randomWithRange(0,board.getWide()), Common.randomWithRange(0,board.getHeight()));
 	}
 
 	@Override
 	public OrganismActions lifeStep() {
-		Point p  = this.goAnywhere();
+		Point p  = this.avoidParticularEnemy(Creatures.VIRUS);
 		oa.nx = p.x;
 		oa.ny = p.y;
 		oa.timeToReplicate = this.addReplicationStep();
