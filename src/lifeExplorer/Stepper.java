@@ -23,8 +23,13 @@ public class Stepper extends Thread{
 	public void run(){
 		OrganismActions oa;
 		List<Individuals> indiToAdd = new LinkedList<Individuals>();
+		Event event;
 		while(cCycles < nCycles){
-			r.didSomethingHappen();
+			//Check if an event happened
+			event = r.didSomethingHappen();
+			this.handleEvent(event);
+			
+			//Clear individuals to add due to replication
 			indiToAdd.clear();
 			//Update each individual
 			for(Individuals i : indv){
@@ -60,5 +65,14 @@ public class Stepper extends Thread{
 				e.printStackTrace();
 			}
 		}
+	}
+	private void handleEvent(Event event){
+		//Something happened
+		if(!event.equals(Event.NOTHING)){
+			f.setInfoLabel(Common.event2message(event), cCycles);
+			if(event.equals(Event.METEOR)) b.insertEventOnTempMap(r.generateMeteorite(b.getMaxTemp()), Common.randomWithRange(0, b.getWide()), Common.randomWithRange(0, b.getHeight()));
+			b.recalculateTemps();
+		}
+		
 	}
 }

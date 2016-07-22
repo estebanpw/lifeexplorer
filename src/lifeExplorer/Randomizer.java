@@ -24,4 +24,8 @@ public class Randomizer {
 		}
 		return Event.NOTHING;
 	}
+	
+	public double[][] generateMeteorite(double maxTemp){
+		return GaussianKernel.kernel2scale(Common.randomWithRange(10, 20), (int)(2*maxTemp), 2, 1);
+	}
 }

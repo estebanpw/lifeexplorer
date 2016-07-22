@@ -32,7 +32,7 @@ public class Starter {
 		int clusterSize = 20;
 		int clusters = 4;
 		int pixelsPerCell = 10;
-		double averageEventsPerMaxCycles = 10;
+		double averageEventsPerMaxCycles = 50;
 		int maxCycles = 500;
 		
 		Board b = new Board(x, y, Math.sqrt(clusterSize), clusterSize, clusters);
@@ -48,7 +48,7 @@ public class Starter {
 			i.add(v);
 		}
 		for(int k=0;k<npcs2;k++){
-			Cell c = new Cell(100, 200, new Point(1+k, 1+k), 20.0,
+			Cell c = new Cell(100, 200, new Point(1+k, 1+k), 50.0,
 					new EnvironmentSettings(220,250,1000,1200,10000), b);
 			i.add(c);
 		}

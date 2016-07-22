@@ -1,13 +1,5 @@
 package lifeExplorer;
 
-import java.applet.*;
-import java.awt.*;
-import java.awt.image.*;
-import java.net.*;
-import java.util.*;
-import java.io.*;
-import java.lang.Math.*;
-import java.awt.Color.*;
 
 /**
  * Contains the functionality to generate a gaussian filter kernel and apply it
@@ -92,6 +84,8 @@ public class GaussianKernel {
 		}
 		return kernel;
 	}
+	
+	
 	
 	public static double[][] heatmap(int x, int y, double theta, int seeds, int clusterSize){
 		double [][] map = new double[x][y];
