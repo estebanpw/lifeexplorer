@@ -13,11 +13,11 @@ public class Starter {
 		// TODO Auto-generated method stub
 				
 		//Configuration variables
-		int x = 80, y = 80;
+		int x = 80, y = 60;
 		int npcs1 = 20, npcs2 = 2, npcs3 = 5;
 		int clusterSize = 20;
 		int clusters = 4;
-		int pixelsPerCell = 10;
+		int pixelsPerCell = 15;
 		double averageEventsPerMaxCycles = 10;
 		int maxCycles = 500;
 		
