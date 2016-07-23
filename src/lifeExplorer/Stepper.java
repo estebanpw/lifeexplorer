@@ -71,7 +71,8 @@ public class Stepper extends Thread{
 		if(!event.equals(Event.NOTHING)){
 			f.setInfoLabel(Common.event2message(event), cCycles);
 			if(event.equals(Event.METEOR)) r.generateMeteorite();
-			if(event.equals(Event.HEATWAVE)) r.generateHeatWave();
+			if(event.equals(Event.HEATWAVE)) r.generateWave(true);
+			if(event.equals(Event.COLDWAVE)) r.generateWave(false);
 		}
 		
 	}

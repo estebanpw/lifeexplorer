@@ -1,6 +1,5 @@
 package lifeExplorer;
 
-import java.awt.Color;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -75,10 +74,23 @@ public abstract class Individuals {
 	
 	public Point headToPoint(Point p){
 		Point rp = new Point(position);
-		if(p.x > position.x) rp.x++;
-		if(p.x < position.x) rp.x--;
-		if(p.y > position.y) rp.y++;
-		if(p.y < position.y) rp.y--;
+		Point diff = new Point(p.x - position.x, p.y - position.y);
+		
+		//Normalize to 1 or -1 each difference
+		if(diff.x > 0) diff.x = 1;
+		if(diff.x < 0) diff.x = -1;
+		if(diff.y > 0) diff.y = 1;
+		if(diff.y < 0) diff.y = -1;
+		
+
+		rp.x += diff.x;
+		rp.y += diff.y;
+		
+		//If direct cell is occupied
+		if(this.board.getCell(rp.x, rp.y) != 0){
+			//Try to "go around"
+			rp = this.goAnywhere();
+		}
 		return rp;
 	}
 	
