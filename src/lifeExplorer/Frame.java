@@ -42,9 +42,8 @@ public class Frame {
 					gg.setColor(bglc[x][y]);
 					bg = Common.idToPolygon(0, cellSize, cellSize);
 					for(int len=0; len<bg.npoints; len++){
-						bg.xpoints[len] += (int)x * (int)width/cellSize;
-						bg.ypoints[len] += (int)y * (int)height/cellSize;
-						
+						bg.xpoints[len] += (int)x * cellSize;
+						bg.ypoints[len] += (int)y * cellSize;
 					}
 					gg.fillPolygon(bg);
 				}
@@ -56,8 +55,8 @@ public class Frame {
 					if(p[x][y] != null){
 						gg.setColor(lc[x][y]);
 						for(int len=0; len<p[x][y].npoints; len++){
-							p[x][y].xpoints[len] += (int)x * (int)width/cellSize;
-							p[x][y].ypoints[len] += (int)y * (int)height/cellSize;
+							p[x][y].xpoints[len] += (int)x * cellSize;
+							p[x][y].ypoints[len] += (int)y * cellSize;
 							
 						}
 						gg.fillPolygon(p[x][y]);
@@ -213,7 +212,7 @@ public class Frame {
     	cellSize = sizeOfCell;
     	board = b;
     	if(board.getHeight() != board.getWide() || board.getHeight() % sizeOfCell != 0){
-    		throw new RuntimeException("Board dimensiones must be equal and multiples of the cell size");
+    		//throw new RuntimeException("Board dimensiones must be equal and multiples of the cell size");
     	}
         create();
     }
