@@ -22,20 +22,39 @@ public class Randomizer {
 	 */
 	public Event didSomethingHappen(){
 		if(!lastEvent.equals(Event.NOTHING)){
-			if(lastEvent.equals(Event.HEATWAVE) && remainingCyclesLastEvent > 0){
-				remainingCyclesLastEvent--;
-				this.generateHeatWave();
-			}else if(lastEvent.equals(Event.HEATWAVE) && durationCycles > 0){
-				durationCycles--;
-			}else if(lastEvent.equals(Event.HEATWAVE) && durationCycles == 0 && cyclesToRestore > 0){
-				cyclesToRestore--;
-				this.revertHeatWave();
-			}else{
+			if(lastEvent.equals(Event.EARTHQUAKE)){
 				lastEvent = Event.NOTHING;
 			}
+			else if(lastEvent.equals(Event.HEATWAVE)){
+				if(remainingCyclesLastEvent > 0){
+					remainingCyclesLastEvent--;
+					this.generateWave(true);
+				}else if(durationCycles > 0){
+					durationCycles--;
+				}else if(durationCycles == 0 && cyclesToRestore > 0){
+					cyclesToRestore--;
+					this.revertWave(true);
+				}else{
+					lastEvent = Event.NOTHING;
+				}
+			}
+			else if(lastEvent.equals(Event.COLDWAVE)){
+				if(remainingCyclesLastEvent > 0){
+					remainingCyclesLastEvent--;
+					this.generateWave(false);
+				}else if(durationCycles > 0){
+					durationCycles--;
+				}else if(durationCycles == 0 && cyclesToRestore > 0){
+					cyclesToRestore--;
+					this.revertWave(false);
+				}else{
+					lastEvent = Event.NOTHING;
+				}
+			}
+			
 		}else{
 			if(eventGenerator.isRandomEventTime() == 1){
-				switch(Common.randomWithRange(1, 3)){
+				switch(Common.randomWithRange(0, 3)){
 					case 0: {
 						lastEvent = Event.EARTHQUAKE;
 						remainingCyclesLastEvent = 0;
@@ -55,6 +74,16 @@ public class Randomizer {
 						cyclesToRestore = remainingCyclesLastEvent;
 						return Event.HEATWAVE;
 					}
+					case 3: {
+						lastEvent = Event.COLDWAVE;
+						hwheat = Common.uniRandomWithRange(0.1, 0.12); //Temperature that will be reduced per cycle
+						durationCycles = Common.randomWithRange(10, 20);
+						remainingCyclesLastEvent = 4;
+						lastMinTemp = -b.getMaxTemp();
+						cyclesToRestore = remainingCyclesLastEvent;
+						return Event.COLDWAVE;
+						
+					}
 				}
 			}
 		}
@@ -71,24 +100,29 @@ public class Randomizer {
 		b.recalculateTemps();
 	}
 	
-	public void generateHeatWave(){
+	public void generateWave(boolean hotOrCold){
 		
 		for(int i=0;i<b.getWide();i++){
 			for(int j=0;j<b.getHeight();j++){
-
-				b.updateTemp(b.getTempOfCell(i, j)+((Math.abs(b.getMaxTemp()) - b.getTempOfCell(i, j))*hwheat), i, j);
+				if(hotOrCold){
+					b.updateTemp(b.getTempOfCell(i, j)+((Math.abs(b.getMaxTemp()) - b.getTempOfCell(i, j))*hwheat), i, j);
+				}else{
+					b.updateTemp(b.getTempOfCell(i, j)+((Math.abs(b.getMaxTemp()) - b.getTempOfCell(i, j))*(-1)*hwheat), i, j);
+				}
 			}
 		}
 		b.recalculateTemps();
 	}
 	
-	public void revertHeatWave(){
+	public void revertWave(boolean hotOrCold){
 		
 		for(int i=0;i<b.getWide();i++){
 			for(int j=0;j<b.getHeight();j++){
-				
-				b.updateTemp(b.getTempOfCell(i, j)-((lastMinTemp + b.getTempOfCell(i, j)/b.getMaxTemp())*(-1)*hwheat), i, j);
-
+				if(hotOrCold){
+					b.updateTemp(b.getTempOfCell(i, j)-((lastMinTemp + b.getTempOfCell(i, j)/b.getMaxTemp())*(-1)*hwheat), i, j);
+				}else{
+					b.updateTemp(b.getTempOfCell(i, j)-((lastMinTemp + b.getTempOfCell(i, j)/b.getMaxTemp())*hwheat), i, j);
+				}
 			}
 		}
 		b.recalculateTemps();

@@ -31,12 +31,12 @@ public class Starter {
 		List<Individuals> i = new LinkedList<Individuals>();
 		
 		for(int k=0;k<npcs1;k++){
-			Virus v = new Virus(100, 200, new Point(x-1-k, y-1-k), 0.2, 35.0,
+			Virus v = new Virus(100, 200, new Point(x-1-k, y-1-k), 0.1, 35.0,
 					new EnvironmentSettings(220,250,1000,1200,10000), b);
 			i.add(v);
 		}
 		for(int k=0;k<npcs2;k++){
-			Cell c = new Cell(100, 200, new Point(1+k, 1+k), 50.0,
+			Cell c = new Cell(100, 200, new Point(1+k, 1+k), 100.0,
 					new EnvironmentSettings(220,250,1000,1200,10000), b);
 			i.add(c);
 		}
