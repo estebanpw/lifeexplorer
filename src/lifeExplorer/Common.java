@@ -138,7 +138,7 @@ public class Common {
 		if(e.equals(Event.EARTHQUAKE)) return "An earthquake makes the ground CRUMBLE";
 		if(e.equals(Event.METEOR)) return "A METEORITE HAS LANDED DESTROYING AND CONSUMING EVERYTHING!!";
 		if(e.equals(Event.HEATWAVE)) return "Damn son it is getting hot in here huh [HEATWAVE]";
-		if(e.equals(Event.COLDWAVE)) return "Everything started to freeze...we were doomed...";
+		if(e.equals(Event.COLDWAVE)) return "Everything started to freeze...[COLDWAVE]";
 		return "Nothing but a Gthang";
 	}
 	

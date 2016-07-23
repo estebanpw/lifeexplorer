@@ -1,6 +1,5 @@
 package lifeExplorer;
 
-import java.awt.Color;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.LinkedList;

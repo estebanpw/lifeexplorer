@@ -25,6 +25,9 @@ public class Randomizer {
 			if(lastEvent.equals(Event.EARTHQUAKE)){
 				lastEvent = Event.NOTHING;
 			}
+			else if(lastEvent.equals(Event.METEOR)){
+				lastEvent = Event.NOTHING;
+			}
 			else if(lastEvent.equals(Event.HEATWAVE)){
 				if(remainingCyclesLastEvent > 0){
 					remainingCyclesLastEvent--;
@@ -95,7 +98,7 @@ public class Randomizer {
 	 *  Generates a small kernel of doubles representing the meteorite region impacted
 	 */
 	public void generateMeteorite(){
-		b.insertEventOnTempMap(GaussianKernel.kernel2scale(Common.randomWithRange(10, 20), (int)(1.5*b.getMaxTemp()), 2, 1), 
+		b.insertEventOnTempMap(GaussianKernel.kernel2scale(Common.randomWithRange(10, 20), (int)(Math.max(Math.abs(b.getMaxTemp()), Math.abs(b.getMinTemp()))), 2, 1), 
 				Common.randomWithRange(0, b.getWide()), Common.randomWithRange(0, b.getHeight()));
 		b.recalculateTemps();
 	}
