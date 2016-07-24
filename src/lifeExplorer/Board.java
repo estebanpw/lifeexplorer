@@ -35,7 +35,7 @@ public class Board {
 	public int update(int newID, int x, int y, int prevx, int prevy){
 		if(x >= 0 && y >= 0 && x < wide && y < height && board[x][y].getID() == 0){
 			board[x][y].setID(newID);
-			board[prevx][prevy].setID(0);
+			if(prevx != -1 && prevy != -1) board[prevx][prevy].setID(0);
 			return 1;
 		}
 		return 0;

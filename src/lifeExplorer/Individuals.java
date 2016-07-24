@@ -128,6 +128,24 @@ public abstract class Individuals {
 		return Common.int2creatures(board.getCell(p.x, p.y));
 	}
 	
+	/*
+	 *	This functions searches for close enemies. If an enemy is found, its position is
+	 *	returned; otherwise a null is returned that should be handled accordingly.
+	 *	@lc	List of creatures that will be considered enemies
+	 */
+	
+	public Point killEnemy(List<Creatures> lc){
+		Map<Point, Creatures> mpc = this.getCreaturesAround();
+		for(Point p : mpc.keySet()){
+			//If an enemy that we are looking for is close
+			if(lc.contains(mpc.get(p))){
+				//we shall attack
+				
+			}
+		}
+		return null;
+	}
+	
 	public Point headToHot(int mhDistance){
 		Point target = board.getMaxTempPos();
 		if(Common.manhattanDistance(target.x, target.y, this.position.x, this.position.y) < mhDistance){

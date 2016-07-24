@@ -1,17 +1,19 @@
 package lifeExplorer;
 
 import java.awt.Point;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class Stepper extends Thread{
 	private Board b;
 	private Frame f;
-	private List<Individuals> indv;
+	private Map<Point,Individuals> indv;
 	private Randomizer r;
 	private int nCycles, cCycles;
 	
-	public Stepper(Board board, Frame frame, List <Individuals> individuals, int maxCycles, Randomizer r){
+	public Stepper(Board board, Frame frame, Map<Point,Individuals> individuals, int maxCycles, Randomizer r){
 		b = board;
 		f = frame;
 		indv = individuals;
@@ -22,22 +24,28 @@ public class Stepper extends Thread{
 	
 	public void run(){
 		OrganismActions oa;
-		List<Individuals> indiToAdd = new LinkedList<Individuals>();
+		Map<Point,Individuals> indiToAdd = new HashMap<Point,Individuals>();
 		Event event;
 		while(cCycles < nCycles){
 			//Check if an event happened
 			event = r.didSomethingHappen();
 			this.handleEvent(event);
 			
+			
 			//Clear individuals to add due to replication
 			indiToAdd.clear();
 			//Update each individual
-			for(Individuals i : indv){
+			Individuals i;
+			for(Point p : indv.keySet()){
+				i = indv.get(p);
 				oa = i.lifeStep();
+				
 				if(b.update(Common.creatures2int(i.getType()), oa.nx, oa.ny, i.position.x, i.position.y) == 1){
 					i.position.x = oa.nx;
 					i.position.y = oa.ny;
 				}
+				//Put modified in the new list. This will not interfere with other individuals since the positions are updated in the board
+				indiToAdd.put(new Point(i.position.x, i.position.y), i);
 				//If one has accumulated enough rep power, save it to the add list
 				if(oa.timeToReplicate == true){
 					Point newSpawn = b.canBeSpawnedAround(new Point(i.position.x, i.position.y));
@@ -46,14 +54,17 @@ public class Stepper extends Thread{
 						//Copy individual
 						Individuals copyInd = i.copyObject();
 						copyInd.position = newSpawn;
-						indiToAdd.add(copyInd);
+						//Add the new individual to the map
+						indiToAdd.put(newSpawn, copyInd);
+						//Update the board
+						b.update(Common.creatures2int(copyInd.getType()), newSpawn.x, newSpawn.y, -1, -1);
 					}
 				}
 			}
-			//Once we have finished checking for replications, just include them in the list and update will do the rest
-			for(Individuals i : indiToAdd){
-				indv.add(i);
-			}
+			//Once all individuals have had their step ran, we need to readd them
+			indv.clear();
+			indv.putAll(indiToAdd);
+			
 			
 			f.setCycle(cCycles);
 			f.update();
