@@ -38,6 +38,15 @@ public class Board {
 			if(prevx != -1 && prevy != -1) board[prevx][prevy].setID(0);
 			return 1;
 		}
+		
+		return 0;
+	}
+	
+	public int clearPosition(int x, int y){
+		if(x >= 0 && y >= 0 && x < wide && y < height){
+			board[x][y].setID(0);
+			return 1;
+		}
 		return 0;
 	}
 	

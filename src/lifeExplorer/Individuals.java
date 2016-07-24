@@ -134,17 +134,19 @@ public abstract class Individuals {
 	 *	@lc	List of creatures that will be considered enemies
 	 */
 	
-	public Point killEnemy(List<Creatures> lc){
+	public Point findEnemyToKill(List<Creatures> lc){
 		Map<Point, Creatures> mpc = this.getCreaturesAround();
 		for(Point p : mpc.keySet()){
 			//If an enemy that we are looking for is close
 			if(lc.contains(mpc.get(p))){
 				//we shall attack
-				
+				return p;
 			}
 		}
 		return null;
 	}
+	
+	
 	
 	public Point headToHot(int mhDistance){
 		Point target = board.getMaxTempPos();
