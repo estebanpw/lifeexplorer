@@ -18,10 +18,10 @@ public class Starter {
 		int x = 80, y = 60;
 		int npcs1 = 20, npcs2 = 2, npcs3 = 5;
 		int clusterSize = 20;
-		int clusters = 4;
+		int clusters = 8;
 		int pixelsPerCell = 15;
 		double averageEventsPerMaxCycles = 10;
-		int maxCycles = 500;
+		int maxCycles = 100000;
 		
 		//System objects to model the board
 		Board b = new Board(x, y, Math.sqrt(clusterSize), clusterSize, clusters);
@@ -38,12 +38,12 @@ public class Starter {
 			i.put(new Point(x-1-k, y-1-k), v);
 		}
 		for(int k=0;k<npcs2;k++){
-			Cell c = new Cell(100, 200, new Point(1+k, 1+k), 100.0,
+			Cell c = new Cell(100, 200, new Point(1+k, 1+k), 5.0,100.0,
 					new EnvironmentSettings(220,250,1000,1200,10000), b);
 			i.put(new Point(1+k, 1+k), c);
 		}
 		for(int k=0;k<npcs3;k++){
-			Rabbit r = new Rabbit(100, 200, new Point(x/2+k,y/2+k), 0.0, 5.0, new EnvironmentSettings(220,250,1000,1200,10000), b);
+			Rabbit r = new Rabbit(100, 200, new Point(x/2+k,y/2+k), 0.1, 5.0, new EnvironmentSettings(220,250,1000,1200,10000), b);
 			i.put(new Point(x/2+k,y/2+k), r);
 		}
 		

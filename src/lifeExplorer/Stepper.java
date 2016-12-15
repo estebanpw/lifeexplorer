@@ -64,7 +64,7 @@ public class Stepper extends Thread{
 						i.position.x = oa.nx;
 						i.position.y = oa.ny;
 					}
-					//Put modified in the new list. This will not interfere with other individuals since the positions are updated in the board
+					//Put modified in the new map. This will not interfere with other individuals since the positions are updated in the board
 					indiToAdd.put(new Point(i.position.x, i.position.y), i);
 					
 					//If one has accumulated enough rep power, save it to the add list
@@ -86,6 +86,8 @@ public class Stepper extends Thread{
 			//Once all individuals have had their step ran, we need to readd them
 			indv.clear();
 			indv.putAll(indiToAdd);
+			
+			
 			
 			
 			f.setCycle(cCycles);
